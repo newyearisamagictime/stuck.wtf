@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Stuck.wtf — баг‑репорты для e‑commerce</title>
+    <style>
+        body{font-family:Arial,Helvetica,sans-serif;margin:0;color:#222;}
+        .wrapper{max-width:960px;margin:0 auto;padding:0 16px;}
+        section{padding:64px 0;}
+        h1{font-size:2.5rem;margin:0 0 16px;line-height:1.2;}
+        h2{font-size:1.75rem;margin:0 0 16px;}
+        h3{font-size:1.25rem;margin:0 0 8px;}
+        .button{display:inline-block;background:#0070f3;color:#fff;padding:12px 24px;border-radius:4px;text-decoration:none;font-weight:bold;}
+        .list{list-style:none;padding:0;}
+        .list li{margin-bottom:8px;padding-left:24px;position:relative;}
+        .list li:before{content:"✔";position:absolute;left:0;}
+        .pricing-table{display:flex;flex-wrap:wrap;gap:32px;}
+        .price-card{flex:1 1 260px;border:1px solid #ddd;border-radius:6px;padding:24px;text-align:center;}
+        .price-card .price{font-size:2rem;font-weight:bold;margin:16px 0;}
+        form{display:flex;flex-wrap:wrap;gap:8px;}
+        form input[type="email"]{flex:1 1 240px;padding:12px;border:1px solid #ccc;border-radius:4px;}
+        form button{padding:12px 24px;border:none;background:#0070f3;color:#fff;border-radius:4px;font-weight:bold;cursor:pointer;}
+        small{display:block;color:#666;margin-top:8px;}
+        footer{background:#222;color:#fff;text-align:center;padding:24px;}
+    </style>
+</head>
+<body>
+<!-- HERO -->
+<section id="hero" style="background:#f5f9ff;">
+    <div class="wrapper">
+        <h1>Покупатели застряли? <br>Stuck.wtf покажет, где ломается ваш магазин</h1>
+        <p class="subtitle">Сохраняйте до €5 250 прибыли каждую неделю, выявляя ошибки ещё до того, как они съедят продажи.</p>
+        <a href="#trial" class="button">Попробовать бесплатно</a>
+        <small>Установка за 30 секунд. Без карты.</small>
+    </div>
+</section>
+
+<!-- PAIN -->
+<section id="pain">
+    <div class="wrapper">
+        <h2>Когда каждый баг = минус деньги</h2>
+        <ul class="list">
+            <li>Обновили плагин — продажи просели, а отчётами не пахнет.</li>
+            <li>Покупатели молча покидают корзину, аналитика не показывает причину.</li>
+            <li>Письма с жалобами теряются в почтовом хаосе, а вы узнаёте слишком поздно.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits"style="background:#fafafa;">
+    <div class="wrapper">
+        <h2>Почему магазины выбирают нас</h2>
+        <ul class="list">
+            <li><strong>Безлимит пользователей и проектов</strong> — масштабируйтесь без доплат.</li>
+            <li><strong>Realtime‑чат с покупателем</strong> — держите клиента в курсе.</li>
+            <li><strong>Полная прозрачность</strong> — каждый репорт = €5, легко считать ROI.</li>
+            <li><strong>Работает в Германии</strong> — хостинг в ЕС, GDPR by design.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" >
+    <div class="wrapper">
+        <h2>Как работает Stuck.wtf</h2>
+        <ol class="list" style="counter-reset:steps;">
+            <li style="counter-increment:steps;"><strong>1. Устанавливаете виджет</strong> — скопируйте 1 строку JS‑кода на сайт.</li>
+            <li style="counter-increment:steps;"><strong>2. Покупатель видит кнопку «Сообщить о проблеме»</strong> и отправляет скриншот в 1 клик.</li>
+            <li style="counter-increment:steps;"><strong>3. Тикет падает в Jira/Notion/Trello</strong> — двух‑сторонняя синхронизация сразу даст статус.</li>
+            <li style="counter-increment:steps;"><strong>4. Вы отвечаете прямо из системы</strong>, а клиент получает сообщение на сайте: «Исправили, можно покупать!»</li>
+        </ol>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:#fafafa;">
+    <div class="wrapper">
+        <h2>Простое ценообразование</h2>
+        <div class="pricing-table">
+            <div class="price-card">
+                <h3>Starter</h3>
+                <p class="price">€19 / месяц</p>
+                <ul class="list">
+                    <li>100 репортов включено</li>
+                    <li>Интеграции Jira, Notion, Trello, GitHub</li>
+                    <li>Двухсторонняя синхронизация</li>
+                    <li>Безлимит магазинов &amp; пользователей</li>
+                </ul>
+                <a href="#trial" class="button">Начать 14‑дн. триал</a>
+            </div>
+            <div class="price-card">
+                <h3>Growth</h3>
+                <p class="price">€99 / месяц</p>
+                <ul class="list">
+                    <li>Безлимит репортов</li>
+                    <li>Приоритетная поддержка 24/7</li>
+                    <li>Сессия с экспертом по UX ежемесячно</li>
+                </ul>
+                <a href="#trial" class="button">Выбрать Growth</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+    <div class="wrapper">
+        <h2>Готовы вернуть потерянные продажи?</h2>
+        <form id="trial">
+            <input type="email" placeholder="Ваш e‑mail" required>
+            <button type="submit">Получить доступ</button>
+        </form>
+        <small>Мы отправим ссылку на установку виджета и чек‑лист диагностики.</small>
+    </div>
+</section>
+
+<footer>
+    <div class="wrapper">
+        <p>&copy; 2025 Stuck.wtf. Все права защищены.</p>
+    </div>
+</footer>
+</body>
+</html>
