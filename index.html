@@ -17,6 +17,12 @@
         .step{font-size:3rem;font-weight:700;color:#04A;line-height:1}
         .price-card{border:1px solid #ddd;border-radius:8px;padding:32px;text-align:center}
         .price-card h3{margin-top:0}
+        .price-cards{
+            display:flex;
+            gap:20px;
+            justify-content:center;
+            margin-top:40px;
+        }
     </style>
 </head>
 <body>
@@ -30,8 +36,8 @@
 
 <!-- 2. Боль и ситуация -->
 <section id="pain">
-    <h2>When a single glitch costs €750 profit a day…</h2>
-    <p>Your checkout suddenly drops conversions. No alerts, no clear logs – only abandoned carts and lost sales.</p>
+    <h2>When a single glitch costs €1000+ in revenue a day…</h2>
+    <p>You updated a plugin. Your checkout suddenly drops conversions. No alerts, no clear logs – only abandoned carts and lost sales.</p>
     <p><strong>stuck.wtf</strong> puts a tiny “Report a problem” button on every page so shoppers can point at the
         bug the moment it happens.</p>
 </section>
@@ -71,15 +77,27 @@
 <!-- 5. Оффер, прайсинг и финальный CTA -->
 <section id="signup">
     <h2>Priced to pay for itself <em>day one</em></h2>
-    <div class="price-card">
-        <h3>€19/mo + €5 per confirmed report</h3>
-        <p>No limits on users, projects or traffic. Cancel anytime.</p>
-        <a href="#" class="btn">Start free &nbsp;→</a>
+    <div class="price-cards">
+        <div class="price-card">
+            <h3>Starter</h3>
+            <p>€19/mo + €20 per confirmed report</p>
+            <p>No limits on users, projects or traffic. Cancel anytime.</p>
+            <a href="#" class="btn">Start free &nbsp;→</a>
+        </div>
+        <div class="price-card">
+            <h3>Pro</h3>
+            <p>€99/mo</p>
+            <p>Up to 5 projects, unlimited confirmed reports, priority support.</p>
+            <a href="#" class="btn">Start free &nbsp;→</a>
+        </div>
+        <div class="price-card">
+            <h3>Enterprise</h3>
+            <p>Custom pricing</p>
+            <p>Unlimited projects, reports, custom integrations, SLAs.</p>
+            <a href="#" class="btn">Contact us &nbsp;→</a>
+        </div>
     </div>
-    <p style="margin-top:40px;font-size:.9rem;color:#555">
-        Average lost profit per hidden bug (40 orders × €0.75 margin) — €750/day.
-        One €5 report = 200× ROI. 📈
-    </p>
+
 </section>
 
 </body>
