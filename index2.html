@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en" class="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Stop losing customers to hidden bugs | stuck.wtf</title>
+    <!-- Variable Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Tailwind via CDN for quick prototyping. Replace with self‑hosted build for prod -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root{
+            --accent:#4F46E5;
+        }
+        /* subtle hero gradient */
+        .bg-radial{
+            background: radial-gradient(at 50% -20%, rgba(79,70,229,0.12) 0%,transparent 60%);
+        }
+        /* Scroll‑reveal */
+        [data-reveal]{
+            opacity:0;
+            transform:translateY(40px);
+            transition:all .6s cubic-bezier(.215,.61,.355,1);
+        }
+        [data-reveal].in-view{
+            opacity:1;
+            transform:none;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-[Inter] text-slate-800 bg-white bg-radial antialiased scroll-smooth">
+<!-- Sticky nav -->
+<header class="sticky top-0 z-40 bg-white/70 backdrop-blur border-b border-slate-100">
+    <div class="container mx-auto px-4 max-w-7xl flex items-center justify-between py-3">
+        <a href="#" class="font-semibold tracking-tight text-lg">stuck.<span class="text-[var(--accent)]">wtf</span></a>
+        <nav class="hidden md:flex gap-6 text-sm">
+            <a href="#features" class="hover:text-[var(--accent)]">Why us</a>
+            <a href="#how" class="hover:text-[var(--accent)]">How it works</a>
+            <a href="#pricing" class="hover:text-[var(--accent)]">Pricing</a>
+        </nav>
+        <div class="flex items-center gap-3">
+            <button id="reportButton" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--accent)] text-[var(--accent)] text-sm font-medium hover:bg-[var(--accent)] hover:text-white transition">Report a problem</button>
+            <a href="#" class="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-[var(--accent)] text-white text-sm font-medium shadow-sm hover:scale-105 transition">Start free trial</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Hero -->
+    <section class="container mx-auto max-w-7xl px-4 py-24 md:py-32 grid md:grid-cols-2 place-items-center gap-12">
+        <div>
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">Stop losing customers<br>to hidden bugs</h1>
+            <p class="text-lg text-slate-600 mb-8">Real‑time visual reports from shoppers help you fix issues before they kill your revenue.</p>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <a href="#" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[var(--accent)] text-white text-base font-medium hover:scale-105 transition">Start free trial</a>
+                <button id="heroReport" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-slate-300 text-slate-700 text-base font-medium hover:bg-slate-50 transition">Report a problem</button>
+            </div>
+        </div>
+        <div class="relative">
+            <img src="https://images.unsplash.com/photo-1573497019959-334a81d390e0?auto=format&fit=crop&w=900&q=80" alt="Dashboard preview" class="rounded-2xl shadow-2xl ring-1 ring-black/10">
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="py-24 bg-slate-50">
+        <div class="container mx-auto max-w-7xl px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Why store owners choose us</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- feature -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100" data-reveal>
+                    <svg class="w-8 h-8 text-[var(--accent)] mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 3"/></svg>
+                    <h3 class="font-semibold text-xl mb-2">Recover revenue faster</h3>
+                    <p class="text-slate-600">See what’s broken, where and for whom — in seconds, not days.</p>
+                </div>
+                <!-- feature -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100" data-reveal>
+                    <svg class="w-8 h-8 text-[var(--accent)] mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V10a2 2 0 012-2h2"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 12v9"/></svg>
+                    <h3 class="font-semibold text-xl mb-2">Talk to the buyer</h3>
+                    <p class="text-slate-600">Automatic chat thanks the customer and keeps them updated while you fix the issue.</p>
+                </div>
+                <!-- feature -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100" data-reveal>
+                    <svg class="w-8 h-8 text-[var(--accent)] mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17.25l-3.5-3.5 1.5-1.5 2 2 4.5-4.5 1.5 1.5-6 6z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12.75V6.75A1.5 1.5 0 018.25 5.25h7.5a1.5 1.5 0 011.5 1.5v7.5"/></svg>
+                    <h3 class="font-semibold text-xl mb-2">Fits your stack</h3>
+                    <p class="text-slate-600">Two‑way sync with Jira, Notion, Trello or GitHub. Unlimited users, projects and pageviews.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="py-24">
+        <div class="container mx-auto max-w-7xl px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">How it works — 2 min setup</h2>
+            <div class="flex overflow-x-auto gap-6 snap-x md:overflow-visible md:grid md:grid-cols-6 text-center">
+                <!-- Step -->
+                <div class="min-w-[240px] md:min-w-0 snap-start flex flex-col items-center" data-reveal>
+                    <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold mb-4">1</span>
+                    <p>Copy your personal widget snippet after signup.</p>
+                </div>
+                <!-- Step -->
+                <div class="min-w-[240px] md:min-w-0 snap-start flex flex-col items-center" data-reveal>
+                    <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold mb-4">2</span>
+                    <p>Paste it into the header of your Shopify / Woo store.</p>
+                </div>
+                <!-- Step -->
+                <div class="min-w-[240px] md:min-w-0 snap-start flex flex-col items-center" data-reveal>
+                    <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold mb-4">3</span>
+                    <p>Shoppers click “Report a problem”, mark the screen and hit Send.</p>
+                </div>
+                <!-- Step -->
+                <div class="min-w-[240px] md:min-w-0 snap-start flex flex-col items-center" data-reveal>
+                    <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold mb-4">4</span>
+                    <p>Ticket lands in stuck.wtf (and Jira if linked) with all data attached.</p>
+                </div>
+                <!-- Step -->
+                <div class="min-w-[240px] md:min-w-0 snap-start flex flex-col items-center" data-reveal>
+                    <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold mb-4">5</span>
+                    <p>You fix the bug and close the ticket – the buyer gets an instant “All set!”</p>
+                </div>
+                <!-- Step -->
+                <div class="min-w-[240px] md:min-w-0 snap-start flex flex-col items-center" data-reveal>
+                    <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold mb-4">6</span>
+                    <p>Revenue flows again instead of leaking away.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-24 bg-slate-50">
+        <div class="container mx-auto max-w-7xl px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Priced to pay for itself day one</h2>
+
+            <!-- Toggle -->
+            <div class="flex justify-center mb-10">
+                <div class="inline-flex items-center gap-2 bg-white p-1 rounded-full shadow-inner border border-slate-100">
+                    <button class="planToggle px-4 py-2 rounded-full text-sm font-medium bg-[var(--accent)] text-white" data-plan="monthly">Monthly</button>
+                    <button class="planToggle px-4 py-2 rounded-full text-sm font-medium text-slate-700" data-plan="yearly">Yearly</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Starter → card -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100" data-reveal>
+                    <h3 class="font-semibold text-2xl mb-2">Starter</h3>
+                    <p class="text-4xl font-bold mb-4"><span data-price-m="€19/mo">€19</span><span data-price-y="€15" class="hidden"></span><span class="text-base font-medium"> / month</span></p>
+                    <ul class="text-slate-600 space-y-2 mb-6">
+                        <li>No limits on users, projects or traffic</li>
+                        <li>€20 per confirmed report</li>
+                        <li>Cancel anytime</li>
+                    </ul>
+                    <a href="#" class="inline-flex w-full items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--accent)] text-white text-base font-medium hover:scale-105 transition">Start free</a>
+                </div>
+                <!-- Pro → card -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border-2 border-[var(--accent)] scale-[1.03] relative" data-reveal>
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--accent)] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">Most popular</span>
+                    <h3 class="font-semibold text-2xl mb-2">Pro</h3>
+                    <p class="text-4xl font-bold mb-4"><span data-price-m="€99/mo">€99</span><span data-price-y="€79" class="hidden"></span><span class="text-base font-medium"> / month</span></p>
+                    <ul class="text-slate-600 space-y-2 mb-6">
+                        <li>Up to 5 projects</li>
+                        <li>Unlimited confirmed reports</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="#" class="inline-flex w-full items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--accent)] text-white text-base font-medium hover:scale-105 transition">Start free</a>
+                </div>
+                <!-- Enterprise → card -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100" data-reveal>
+                    <h3 class="font-semibold text-2xl mb-2">Enterprise</h3>
+                    <p class="text-4xl font-bold mb-4">Custom</p>
+                    <ul class="text-slate-600 space-y-2 mb-6">
+                        <li>Unlimited projects & reports</li>
+                        <li>Custom integrations & SLAs</li>
+                        <li>Dedicated success manager</li>
+                    </ul>
+                    <a href="#" class="inline-flex w-full items-center justify-center gap-2 px-6 py-3 rounded-lg border border-[var(--accent)] text-[var(--accent)] text-base font-medium hover:bg-[var(--accent)] hover:text-white transition">Contact us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="py-12">
+    <div class="container mx-auto max-w-7xl px-4 text-center text-sm text-slate-500">
+        © 2025 stuck.wtf. All rights reserved.
+    </div>
+</footer>
+
+<!-- Scroll reveal & interactions -->
+<script>
+    const revealEls = document.querySelectorAll('[data-reveal]');
+    const io = new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+            if(entry.isIntersecting){
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+            }
+        });
+    },{threshold:.2});
+    revealEls.forEach(el=>io.observe(el));
+
+    // Pricing toggle
+    const toggles = document.querySelectorAll('.planToggle');
+    toggles.forEach(btn=>btn.addEventListener('click',()=>{
+        const plan = btn.dataset.plan;
+        toggles.forEach(b=>{
+            b.classList.toggle('bg-[var(--accent)]', b.dataset.plan===plan);
+            b.classList.toggle('text-white', b.dataset.plan===plan);
+        });
+        document.querySelectorAll('[data-price-m]').forEach(el=>{
+            el.parentElement.querySelector('[data-price-y]').classList.toggle('hidden', plan==='monthly');
+            el.classList.toggle('hidden', plan==='yearly');
+        });
+    }));
+
+    // Report button bounce every 20s
+    function bounce(){
+        const btn=document.getElementById('reportButton');
+        if(!btn) return;
+        btn.animate([{transform:'translateY(0)'},{transform:'translateY(-4px)'},{transform:'translateY(0)'}],{duration:600});
+        setTimeout(bounce,20000);
+    }
+    setTimeout(bounce,20000);
+</script>
+</body>
+</html>
