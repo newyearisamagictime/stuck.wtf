@@ -305,34 +305,383 @@
     </div>
 </footer>
 
+<!-- Виджет обратной связи -->
+<div class="feedback-widget">
+    <button class="feedback-btn" onclick="openFeedback()">Report a problem</button>
+</div>
+
+<!-- Pop-up окно для обратной связи -->
+<div class="feedback-popup" id="feedbackPopup">
+    <div class="feedback-modal">
+        <button class="feedback-close" onclick="closeFeedback()">&times;</button>
+
+        <div id="feedbackForm">
+            <div class="feedback-header">
+                <h3>🐛 Report a problem</h3>
+                <p>Help us fix issues by describing what went wrong. We'll get back to you shortly!</p>
+            </div>
+
+            <form class="feedback-form" onsubmit="submitFeedback(event)">
+                <div>
+                    <label for="problemType">What type of issue are you experiencing?</label>
+                    <select id="problemType" required>
+                        <option value="">Select issue type...</option>
+                        <option value="page-not-loading">Page not loading</option>
+                        <option value="button-not-working">Button not working</option>
+                        <option value="checkout-issue">Checkout problem</option>
+                        <option value="display-issue">Display/layout issue</option>
+                        <option value="slow-loading">Slow loading</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="userEmail">Your email (optional)</label>
+                    <input type="email" id="userEmail" placeholder="your@email.com">
+                </div>
+
+                <div>
+                    <label for="problemDescription">Describe the problem</label>
+                    <textarea id="problemDescription" required placeholder="Please describe what you were trying to do and what went wrong..."></textarea>
+                </div>
+
+                <div class="screenshot-area">
+                    📸 Screenshot automatically captured<br>
+                    <small>Browser info and page URL included</small>
+                </div>
+
+                <div class="feedback-actions">
+                    <button type="button" class="feedback-btn-secondary" onclick="closeFeedback()">Cancel</button>
+                    <button type="submit" class="feedback-btn-primary">Send Report</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="successMessage" class="success-message" style="display: none;">
+            <h3>✅ Thank you!</h3>
+            <p>We've received your report and will investigate the issue right away.</p>
+            <p>We'll keep you updated via email if you provided one.</p>
+            <button class="feedback-btn-primary" onclick="closeFeedback()">Close</button>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Виджет обратной связи - адаптированный под стилистику index2 */
+.feedback-widget {
+    position: fixed;
+    right: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+
+.feedback-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 12px 6px;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px 0 0 8px;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.feedback-btn:hover {
+    background: #3F46E5;
+    transform: translateX(-3px);
+}
+
+.feedback-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.feedback-popup.active {
+    display: flex;
+}
+
+.feedback-modal {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 480px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideIn 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+@keyframes slideIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.feedback-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #64748b;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.feedback-close:hover {
+    background: #f1f5f9;
+}
+
+.feedback-header {
+    margin-bottom: 20px;
+    padding-right: 40px;
+}
+
+.feedback-header h3 {
+    margin: 0 0 8px 0;
+    color: #1e293b;
+    font-size: 20px;
+    font-family: 'Kaushan Script', cursive;
+}
+
+.feedback-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.feedback-form label {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 4px;
+    display: block;
+    font-size: 14px;
+}
+
+.feedback-form input,
+.feedback-form textarea,
+.feedback-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.feedback-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.feedback-form input:focus,
+.feedback-form textarea:focus,
+.feedback-form select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.feedback-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.feedback-btn-secondary {
+    background: #f8f9fa;
+    color: #64748b;
+    border: 1px solid #d1d5db;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.feedback-btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+.feedback-btn-primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.feedback-btn-primary:hover {
+    background: #3F46E5;
+}
+
+.feedback-btn-primary:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+.screenshot-area {
+    border: 1px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+    margin: 16px 0;
+    background: #f8fafc;
+}
+
+.success-message {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.success-message h3 {
+    color: #059669;
+    margin-bottom: 12px;
+    font-family: 'Kaushan Script', cursive;
+}
+
+.success-message p {
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .feedback-modal {
+        margin: 20px;
+        width: calc(100% - 40px);
+    }
+
+    .feedback-actions {
+        flex-direction: column;
+    }
+
+    .feedback-btn-secondary,
+    .feedback-btn-primary {
+        width: 100%;
+    }
+}
+</style>
+
 <script>
-// Scroll reveal animation
-const revealElements = document.querySelectorAll('[data-reveal]');
-const revealElementOnScroll = () => {
-    revealElements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
+function openFeedback() {
+    document.getElementById('feedbackPopup').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
 
-        if (elementTop < window.innerHeight - elementVisible) {
-            element.classList.add('in-view');
+function closeFeedback() {
+    document.getElementById('feedbackPopup').classList.remove('active');
+    document.body.style.overflow = 'auto';
+
+    // Сброс формы при закрытии
+    setTimeout(() => {
+        document.getElementById('feedbackForm').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+        document.querySelector('.feedback-form').reset();
+    }, 300);
+}
+
+function submitFeedback(event) {
+    event.preventDefault();
+
+    const formData = {
+        type: document.getElementById('problemType').value,
+        email: document.getElementById('userEmail').value,
+        description: document.getElementById('problemDescription').value,
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        timestamp: new Date().toISOString(),
+        viewport: {
+            width: window.innerWidth,
+            height: window.innerHeight
         }
-    });
-};
+    };
 
-window.addEventListener('scroll', revealElementOnScroll);
-revealElementOnScroll(); // Check on page load
+    // Имитация отправки данных
+    console.log('Feedback submitted:', formData);
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+    // Показываем сообщение об успехе
+    document.getElementById('feedbackForm').style.display = 'none';
+    document.getElementById('successMessage').style.display = 'block';
+
+    // В реальном приложении здесь был бы API запрос:
+    // fetch('/api/feedback', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(formData)
+    // });
+}
+
+// Закрытие попапа при клике вне модального окна
+document.getElementById('feedbackPopup').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeFeedback();
+    }
+});
+
+// Закрытие попапа при нажатии Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeFeedback();
+    }
+});
+
+// Scroll reveal анимация
+document.addEventListener('DOMContentLoaded', function() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+            }
+        });
+    }, observerOptions);
+
+    // Наблюдаем за всеми элементами с data-reveal
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+        observer.observe(el);
     });
 });
 </script>
