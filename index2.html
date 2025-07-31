@@ -7,9 +7,11 @@
     <!-- Variable EB Garamond font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Oswald font -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <!-- Tailwind via CDN for quick prototyping. Replace with self‑hosted build for prod -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -21,9 +23,8 @@
             background: radial-gradient(at 50% -20%, rgba(201,15,15,0.12) 0%,transparent 60%);
         }
         /* Apply Oswald to all headings */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Oswald', cursive;
-            text-transform: uppercase;
+        h1,h2, h3, h4, h5, h6 {
+            font-family: 'Kaushan Script', cursive;
         }
         /* Scroll‑reveal */
         [data-reveal]{
@@ -37,7 +38,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen font-['EB_Garamond'] text-slate-800 bg-white bg-radial antialiased scroll-smooth">
+<body class="min-h-screen font-['Noto_Sans'] text-slate-800 bg-white bg-radial antialiased scroll-smooth">
 <!-- Sticky nav -->
 <header class="sticky top-0 z-40 bg-white/70 backdrop-blur border-b border-slate-100">
     <div class="container mx-auto px-4 max-w-7xl flex items-center justify-between py-3">
@@ -451,7 +452,7 @@
     border-radius: 8px 0 0 8px;
     box-shadow: -2px 0 10px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 .feedback-btn:hover {
@@ -497,7 +498,7 @@
     display: flex;
     gap: 16px;
     align-items: center;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     z-index: 10000;
 }
 
@@ -608,7 +609,7 @@
     overflow-y: auto;
     position: relative;
     animation: slideIn 0.3s ease;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 @keyframes slideIn {
@@ -684,7 +685,7 @@
     padding: 12px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 14px;
     box-sizing: border-box;
     transition: border-color 0.2s, box-shadow 0.2s;
@@ -717,7 +718,7 @@
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 14px;
     transition: all 0.2s;
 }
@@ -733,7 +734,7 @@
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 14px;
     font-weight: 600;
     transition: all 0.2s;
