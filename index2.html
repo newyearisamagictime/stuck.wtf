@@ -1,8 +1,8 @@
-<!doctype html>
-<html lang="en" class="">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stop losing customers to hidden bugs | stuck.wtf</title>
     <!-- Variable Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,191 +45,416 @@
             <a href="#features" class="hover:text-[var(--accent)]">Why us</a>
             <a href="#how" class="hover:text-[var(--accent)]">How it works</a>
             <a href="#pricing" class="hover:text-[var(--accent)]">Pricing</a>
+            <a href="#contact" class="hover:text-[var(--accent)]">Contact</a>
         </nav>
         <div class="flex items-center gap-3">
-            <button id="reportButton" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--accent)] text-[var(--accent)] text-sm font-medium hover:bg-[var(--accent)] hover:text-white transition">Report a problem</button>
-            <a href="#" class="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-[var(--accent)] text-white text-sm font-medium shadow-sm hover:scale-105 transition">Start free trial</a>
+            <a href="#pricing" class="text-sm hover:text-[var(--accent)]">Login</a>
         </div>
     </div>
 </header>
 
-<main>
-    <!-- Hero -->
-    <section class="container mx-auto max-w-7xl px-4 py-24 md:py-32 grid md:grid-cols-2 place-items-center gap-12">
-        <div>
-            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">Stop losing customers<br>to hidden bugs</h1>
-            <p class="text-lg text-slate-600 mb-8">Real‑time visual reports from shoppers help you fix issues before they kill your revenue.</p>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <a href="#" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[var(--accent)] text-white text-base font-medium hover:scale-105 transition">Start free trial</a>
-                <button id="heroReport" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-slate-300 text-slate-700 text-base font-medium hover:bg-slate-50 transition">Report a problem</button>
-            </div>
+<!-- Hero Section -->
+<section class="py-16 md:py-24">
+    <div class="container mx-auto px-4 max-w-6xl text-center" data-reveal>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            Stop losing customers to <span class="text-[var(--accent)]">hidden bugs</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
+            Real-time visual reports from shoppers help you fix issues <b>before</b> they kill your revenue.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="#pricing" class="bg-[var(--accent)] text-white px-8 py-3 rounded-lg hover:bg-[var(--accent)]/90 transition-colors font-medium">
+                Start Free Trial
+            </a>
         </div>
-        <div class="relative">
-            <img src="https://images.unsplash.com/photo-1573497019959-334a81d390e0?auto=format&fit=crop&w=900&q=80" alt="Dashboard preview" class="rounded-2xl shadow-2xl ring-1 ring-black/10">
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-16 bg-slate-50">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center mb-16" data-reveal>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose stuck.wtf?</h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                Our advanced monitoring catches bugs in real-time, ensuring your users have the best possible experience.
+            </p>
         </div>
-    </section>
 
-    <!-- Features -->
-    <section id="features" class="py-24 bg-slate-50">
-        <div class="container mx-auto max-w-7xl px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Why store owners choose us</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- feature -->
-                <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100" data-reveal>
-                    <svg class="w-8 h-8 text-[var(--accent)] mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 3"/></svg>
-                    <h3 class="font-semibold text-xl mb-2">Recover revenue faster</h3>
-                    <p class="text-slate-600">See what’s broken, where and for whom — in seconds, not days.</p>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="text-center p-6" data-reveal>
+                <div class="w-12 h-12 bg-[var(--accent)] rounded-lg mx-auto mb-4 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
                 </div>
-                <!-- feature -->
-                <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100" data-reveal>
-                    <svg class="w-8 h-8 text-[var(--accent)] mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V10a2 2 0 012-2h2"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 12v9"/></svg>
-                    <h3 class="font-semibold text-xl mb-2">Talk to the buyer</h3>
-                    <p class="text-slate-600">Automatic chat thanks the customer and keeps them updated while you fix the issue.</p>
-                </div>
-                <!-- feature -->
-                <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100" data-reveal>
-                    <svg class="w-8 h-8 text-[var(--accent)] mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17.25l-3.5-3.5 1.5-1.5 2 2 4.5-4.5 1.5 1.5-6 6z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12.75V6.75A1.5 1.5 0 018.25 5.25h7.5a1.5 1.5 0 011.5 1.5v7.5"/></svg>
-                    <h3 class="font-semibold text-xl mb-2">Fits your stack</h3>
-                    <p class="text-slate-600">Two‑way sync with Jira, Notion, Trello or GitHub. Unlimited users, projects and pageviews.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How it works -->
-    <section id="how" class="py-24">
-        <div class="container mx-auto max-w-7xl px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">How it works — 2 min setup</h2>
-            <div class="flex overflow-x-auto gap-6 snap-x md:overflow-visible md:grid md:grid-cols-6 text-center">
-                <!-- Step -->
-                <div class="min-w-[240px] md:min-w-0 snap-start flex flex-col items-center" data-reveal>
-                    <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold mb-4">1</span>
-                    <p>Copy your personal widget snippet after signup.</p>
-                </div>
-                <!-- Step -->
-                <div class="min-w-[240px] md:min-w-0 snap-start flex flex-col items-center" data-reveal>
-                    <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold mb-4">2</span>
-                    <p>Paste it into the header of your Shopify / Woo store.</p>
-                </div>
-                <!-- Step -->
-                <div class="min-w-[240px] md:min-w-0 snap-start flex flex-col items-center" data-reveal>
-                    <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold mb-4">3</span>
-                    <p>Shoppers click “Report a problem”, mark the screen and hit Send.</p>
-                </div>
-                <!-- Step -->
-                <div class="min-w-[240px] md:min-w-0 snap-start flex flex-col items-center" data-reveal>
-                    <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold mb-4">4</span>
-                    <p>Ticket lands in stuck.wtf (and Jira if linked) with all data attached.</p>
-                </div>
-                <!-- Step -->
-                <div class="min-w-[240px] md:min-w-0 snap-start flex flex-col items-center" data-reveal>
-                    <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold mb-4">5</span>
-                    <p>You fix the bug and close the ticket – the buyer gets an instant “All set!”</p>
-                </div>
-                <!-- Step -->
-                <div class="min-w-[240px] md:min-w-0 snap-start flex flex-col items-center" data-reveal>
-                    <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white font-semibold mb-4">6</span>
-                    <p>Revenue flows again instead of leaking away.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing -->
-    <section id="pricing" class="py-24 bg-slate-50">
-        <div class="container mx-auto max-w-7xl px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Priced to pay for itself day one</h2>
-
-            <!-- Toggle -->
-            <div class="flex justify-center mb-10">
-                <div class="inline-flex items-center gap-2 bg-white p-1 rounded-full shadow-inner border border-slate-100">
-                    <button class="planToggle px-4 py-2 rounded-full text-sm font-medium bg-[var(--accent)] text-white" data-plan="monthly">Monthly</button>
-                    <button class="planToggle px-4 py-2 rounded-full text-sm font-medium text-slate-700" data-plan="yearly">Yearly</button>
-                </div>
+                <h3 class="text-xl font-bold mb-2">Real-time Detection</h3>
+                <p class="text-slate-600">Instantly detect bugs and performance issues as they happen, not after customer complaints.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Starter → card -->
-                <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100" data-reveal>
-                    <h3 class="font-semibold text-2xl mb-2">Starter</h3>
-                    <p class="text-4xl font-bold mb-4"><span data-price-m="€19/mo">€19</span><span data-price-y="€15" class="hidden"></span><span class="text-base font-medium"> / month</span></p>
-                    <ul class="text-slate-600 space-y-2 mb-6">
-                        <li>No limits on users, projects or traffic</li>
-                        <li>€20 per confirmed report</li>
-                        <li>Cancel anytime</li>
-                    </ul>
-                    <a href="#" class="inline-flex w-full items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--accent)] text-white text-base font-medium hover:scale-105 transition">Start free</a>
+            <div class="text-center p-6" data-reveal>
+                <div class="w-12 h-12 bg-[var(--accent)] rounded-lg mx-auto mb-4 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H9z"></path>
+                    </svg>
                 </div>
-                <!-- Pro → card -->
-                <div class="bg-white rounded-2xl p-8 shadow-sm border-2 border-[var(--accent)] scale-[1.03] relative" data-reveal>
-                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--accent)] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">Most popular</span>
-                    <h3 class="font-semibold text-2xl mb-2">Pro</h3>
-                    <p class="text-4xl font-bold mb-4"><span data-price-m="€99/mo">€99</span><span data-price-y="€79" class="hidden"></span><span class="text-base font-medium"> / month</span></p>
-                    <ul class="text-slate-600 space-y-2 mb-6">
-                        <li>Up to 5 projects</li>
-                        <li>Unlimited confirmed reports</li>
-                        <li>Priority support</li>
-                    </ul>
-                    <a href="#" class="inline-flex w-full items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--accent)] text-white text-base font-medium hover:scale-105 transition">Start free</a>
+                <h3 class="text-xl font-bold mb-2">Smart Analytics</h3>
+                <p class="text-slate-600">Get detailed insights about user behavior and bug patterns with our advanced analytics.</p>
+            </div>
+
+            <div class="text-center p-6" data-reveal>
+                <div class="w-12 h-12 bg-[var(--accent)] rounded-lg mx-auto mb-4 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
                 </div>
-                <!-- Enterprise → card -->
-                <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100" data-reveal>
-                    <h3 class="font-semibold text-2xl mb-2">Enterprise</h3>
-                    <p class="text-4xl font-bold mb-4">Custom</p>
-                    <ul class="text-slate-600 space-y-2 mb-6">
-                        <li>Unlimited projects & reports</li>
-                        <li>Custom integrations & SLAs</li>
-                        <li>Dedicated success manager</li>
-                    </ul>
-                    <a href="#" class="inline-flex w-full items-center justify-center gap-2 px-6 py-3 rounded-lg border border-[var(--accent)] text-[var(--accent)] text-base font-medium hover:bg-[var(--accent)] hover:text-white transition">Contact us</a>
-                </div>
+                <h3 class="text-xl font-bold mb-2">Secure & Private</h3>
+                <p class="text-slate-600">Your data is encrypted and secure. We respect user privacy and comply with all regulations.</p>
             </div>
         </div>
-    </section>
-</main>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how" class="py-16">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center mb-16" data-reveal>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                Get started in minutes with our simple three-step process.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="text-center" data-reveal>
+                <div class="w-16 h-16 bg-[var(--accent)] text-white rounded-full mx-auto mb-4 flex items-center justify-center text-xl font-bold">1</div>
+                <h3 class="text-xl font-bold mb-2">Install Script</h3>
+                <p class="text-slate-600">Add our lightweight monitoring script to your website. It takes less than 5 minutes.</p>
+            </div>
+
+            <div class="text-center" data-reveal>
+                <div class="w-16 h-16 bg-[var(--accent)] text-white rounded-full mx-auto mb-4 flex items-center justify-center text-xl font-bold">2</div>
+                <h3 class="text-xl font-bold mb-2">Monitor Everything</h3>
+                <p class="text-slate-600">Our AI automatically tracks user interactions, errors, and performance metrics in real-time.</p>
+            </div>
+
+            <div class="text-center" data-reveal>
+                <div class="w-16 h-16 bg-[var(--accent)] text-white rounded-full mx-auto mb-4 flex items-center justify-center text-xl font-bold">3</div>
+                <h3 class="text-xl font-bold mb-2">Get Alerts</h3>
+                <p class="text-slate-600">Receive instant notifications when issues are detected, with detailed reports and fix suggestions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section id="pricing" class="py-16 bg-slate-50">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center mb-16" data-reveal>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Simple Pricing</h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                Choose the plan that works best for your business. All plans include our core monitoring features.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div class="bg-white p-8 rounded-2xl border border-slate-200" data-reveal>
+                <h3 class="text-xl font-bold mb-2">Starter</h3>
+                <div class="mb-6">
+                    <span class="text-3xl font-bold">$19</span>
+                    <span class="text-slate-600">/month</span>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Up to 10K page views
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Real-time monitoring
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Email alerts
+                    </li>
+                </ul>
+                <a href="#" class="block w-full text-center bg-slate-100 text-slate-800 py-3 rounded-lg hover:bg-slate-200 transition-colors">Get Started</a>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl border-2 border-[var(--accent)] relative" data-reveal>
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[var(--accent)] text-white px-3 py-1 rounded-full text-sm">Popular</div>
+                <h3 class="text-xl font-bold mb-2">Professional</h3>
+                <div class="mb-6">
+                    <span class="text-3xl font-bold">$49</span>
+                    <span class="text-slate-600">/month</span>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Up to 100K page views
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Advanced analytics
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Slack/Discord integration
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Priority support
+                    </li>
+                </ul>
+                <a href="#" class="block w-full text-center bg-[var(--accent)] text-white py-3 rounded-lg hover:bg-[var(--accent)]/90 transition-colors">Get Started</a>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl border border-slate-200" data-reveal>
+                <h3 class="text-xl font-bold mb-2">Enterprise</h3>
+                <div class="mb-6">
+                    <span class="text-3xl font-bold">$199</span>
+                    <span class="text-slate-600">/month</span>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Unlimited page views
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Custom integrations
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Dedicated support
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        SLA guarantee
+                    </li>
+                </ul>
+                <a href="#" class="block w-full text-center bg-slate-100 text-slate-800 py-3 rounded-lg hover:bg-slate-200 transition-colors">Contact Sales</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-16">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center mb-16" data-reveal>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Customers Say</h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                Join thousands of developers who trust stuck.wtf to keep their applications running smoothly.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200" data-reveal>
+                <div class="mb-4">
+                    <div class="flex text-yellow-400 mb-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-slate-600 mb-4">"stuck.wtf helped us reduce customer complaints by 90%. We now catch issues before they impact users."</p>
+                <div class="font-semibold">Sarah Chen</div>
+                <div class="text-sm text-slate-500">CTO, TechStartup</div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200" data-reveal>
+                <div class="mb-4">
+                    <div class="flex text-yellow-400 mb-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-slate-600 mb-4">"The real-time alerts are incredibly valuable. We fixed a critical bug within minutes instead of hours."</p>
+                <div class="font-semibold">Mike Rodriguez</div>
+                <div class="text-sm text-slate-500">Lead Developer, E-commerce Co</div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200" data-reveal>
+                <div class="mb-4">
+                    <div class="flex text-yellow-400 mb-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-slate-600 mb-4">"Simple to integrate and incredibly powerful. Our user experience has never been better."</p>
+                <div class="font-semibold">Alex Johnson</div>
+                <div class="text-sm text-slate-500">Product Manager, SaaS Platform</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section id="contact" class="py-16 bg-[var(--accent)] text-white">
+    <div class="container mx-auto px-4 max-w-4xl text-center" data-reveal>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Stop Losing Customers?</h2>
+        <p class="text-lg mb-8 opacity-90">
+            Join thousands of developers who trust stuck.wtf to keep their applications running smoothly.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="#pricing" class="bg-white text-[var(--accent)] px-8 py-3 rounded-lg hover:bg-slate-100 transition-colors font-medium">
+                Start Free Trial
+            </a>
+            <a href="#" class="border border-white/30 px-8 py-3 rounded-lg hover:border-white transition-colors font-medium">
+                Book a Demo
+            </a>
+        </div>
+    </div>
+</section>
 
 <!-- Footer -->
-<footer class="py-12">
-    <div class="container mx-auto max-w-7xl px-4 text-center text-sm text-slate-500">
-        © 2025 stuck.wtf. All rights reserved.
+<footer class="py-12 bg-slate-900 text-white">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <img src="./stuck-logo.png" alt="stuck.wtf" class="mb-4" style="max-width: 100px; filter: brightness(0) invert(1);">
+                <p class="text-slate-400 text-sm">Stop losing customers to hidden bugs with our real-time monitoring solution.</p>
+            </div>
+
+            <div>
+                <h4 class="font-semibold mb-4">Product</h4>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li><a href="#features" class="hover:text-white">Features</a></li>
+                    <li><a href="#how" class="hover:text-white">How it works</a></li>
+                    <li><a href="#pricing" class="hover:text-white">Pricing</a></li>
+                    <li><a href="#" class="hover:text-white">API Docs</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-semibold mb-4">Company</h4>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li><a href="#" class="hover:text-white">About</a></li>
+                    <li><a href="#" class="hover:text-white">Blog</a></li>
+                    <li><a href="#" class="hover:text-white">Careers</a></li>
+                    <li><a href="#contact" class="hover:text-white">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-semibold mb-4">Support</h4>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li><a href="#" class="hover:text-white">Help Center</a></li>
+                    <li><a href="#" class="hover:text-white">Documentation</a></li>
+                    <li><a href="#" class="hover:text-white">Status</a></li>
+                    <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-slate-400 text-sm">© 2025 stuck.wtf. All rights reserved.</p>
+            <div class="flex gap-4 mt-4 md:mt-0">
+                <a href="#" class="text-slate-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                    </svg>
+                </a>
+                <a href="#" class="text-slate-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"></path>
+                    </svg>
+                </a>
+                <a href="#" class="text-slate-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-12.014C24.007 5.36 18.641.001 12.017.001z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
     </div>
 </footer>
 
-<!-- Scroll reveal & interactions -->
 <script>
-    const revealEls = document.querySelectorAll('[data-reveal]');
-    const io = new IntersectionObserver(entries=>{
-        entries.forEach(entry=>{
-            if(entry.isIntersecting){
-                entry.target.classList.add('in-view');
-                io.unobserve(entry.target);
-            }
-        });
-    },{threshold:.2});
-    revealEls.forEach(el=>io.observe(el));
+// Scroll reveal animation
+const revealElements = document.querySelectorAll('[data-reveal]');
+const revealElementOnScroll = () => {
+    revealElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
 
-    // Pricing toggle
-    const toggles = document.querySelectorAll('.planToggle');
-    toggles.forEach(btn=>btn.addEventListener('click',()=>{
-        const plan = btn.dataset.plan;
-        toggles.forEach(b=>{
-            b.classList.toggle('bg-[var(--accent)]', b.dataset.plan===plan);
-            b.classList.toggle('text-white', b.dataset.plan===plan);
-        });
-        document.querySelectorAll('[data-price-m]').forEach(el=>{
-            el.parentElement.querySelector('[data-price-y]').classList.toggle('hidden', plan==='monthly');
-            el.classList.toggle('hidden', plan==='yearly');
-        });
-    }));
+        if (elementTop < window.innerHeight - elementVisible) {
+            element.classList.add('in-view');
+        }
+    });
+};
 
-    // Report button bounce every 20s
-    function bounce(){
-        const btn=document.getElementById('reportButton');
-        if(!btn) return;
-        btn.animate([{transform:'translateY(0)'},{transform:'translateY(-4px)'},{transform:'translateY(0)'}],{duration:600});
-        setTimeout(bounce,20000);
-    }
-    setTimeout(bounce,20000);
+window.addEventListener('scroll', revealElementOnScroll);
+revealElementOnScroll(); // Check on page load
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
 </script>
+
 </body>
 </html>
