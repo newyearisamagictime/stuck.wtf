@@ -1117,8 +1117,35 @@ function submitFeedback(event) {
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    // Удаляем старый JavaScript для feedback
-    // Новый функционал уже включен выше
+    // Scroll reveal анимация
+    function initScrollReveal() {
+        const revealElements = document.querySelectorAll('[data-reveal]');
+
+        function checkReveal() {
+            const windowHeight = window.innerHeight;
+
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150; // Элемент становится видимым за 150px до появления в окне
+
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('in-view');
+                }
+            });
+        }
+
+        // Проверяем при загрузке
+        checkReveal();
+
+        // Проверяем при скролле
+        window.addEventListener('scroll', checkReveal);
+
+        // Проверяем при изменении размера окна
+        window.addEventListener('resize', checkReveal);
+    }
+
+    // Инициализируем scroll reveal
+    initScrollReveal();
 });
 </script>
 
