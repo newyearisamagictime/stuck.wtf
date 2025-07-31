@@ -307,10 +307,72 @@
 
 <!-- Виджет обратной связи -->
 <div class="feedback-widget">
-    <button class="feedback-btn" onclick="openFeedback()">Report a problem</button>
+    <button class="feedback-btn" onclick="startScreenshot()">Report a problem</button>
 </div>
 
-<!-- Pop-up окно для обратной связи -->
+<!-- Оверлей для скриншота -->
+<div class="screenshot-overlay" id="screenshotOverlay">
+    <!-- Canvas для рисования аннотаций -->
+    <canvas id="annotationCanvas"></canvas>
+
+    <!-- Панель инструментов -->
+    <div class="screenshot-toolbar">
+        <div class="toolbar-section">
+            <button class="tool-btn active" data-tool="arrow" title="Стрелка">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                </svg>
+            </button>
+            <button class="tool-btn" data-tool="rectangle" title="Прямоугольник">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                </svg>
+            </button>
+            <button class="tool-btn" data-tool="circle" title="Круг">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                </svg>
+            </button>
+            <button class="tool-btn" data-tool="pen" title="Рисование">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="toolbar-section">
+            <div class="color-picker">
+                <button class="color-btn active" data-color="#ff0000" style="background: #ff0000;"></button>
+                <button class="color-btn" data-color="#00ff00" style="background: #00ff00;"></button>
+                <button class="color-btn" data-color="#0000ff" style="background: #0000ff;"></button>
+                <button class="color-btn" data-color="#ffff00" style="background: #ffff00;"></button>
+                <button class="color-btn" data-color="#ff00ff" style="background: #ff00ff;"></button>
+            </div>
+        </div>
+
+        <div class="toolbar-section">
+            <button class="action-btn" onclick="clearAnnotations()" title="Очистить">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="M19,6V20a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6M8,6V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
+                </svg>
+            </button>
+            <button class="action-btn" onclick="undoAnnotation()" title="Отменить">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 7v6h6"/>
+                    <path d="M21 17a9 9 0 00-9-9 9 9 0 00-6 2.3L3 13"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="toolbar-section">
+            <button class="action-btn cancel-btn" onclick="cancelScreenshot()">Отмена</button>
+            <button class="action-btn save-btn" onclick="finishScreenshot()">Готово</button>
+        </div>
+    </div>
+</div>
+
+<!-- Pop-up окно для отправки отчета -->
 <div class="feedback-popup" id="feedbackPopup">
     <div class="feedback-modal">
         <button class="feedback-close" onclick="closeFeedback()">&times;</button>
@@ -318,50 +380,49 @@
         <div id="feedbackForm">
             <div class="feedback-header">
                 <h3>🐛 Report a problem</h3>
-                <p>Help us fix issues by describing what went wrong. We'll get back to you shortly!</p>
+                <p>Добавьте описание к вашему скриншоту</p>
             </div>
 
             <form class="feedback-form" onsubmit="submitFeedback(event)">
+                <div class="screenshot-preview">
+                    <img id="screenshotPreview" src="" alt="Screenshot" style="max-width: 100%; border-radius: 8px;">
+                </div>
+
                 <div>
-                    <label for="problemType">What type of issue are you experiencing?</label>
+                    <label for="problemType">Тип проблемы</label>
                     <select id="problemType" required>
-                        <option value="">Select issue type...</option>
-                        <option value="page-not-loading">Page not loading</option>
-                        <option value="button-not-working">Button not working</option>
-                        <option value="checkout-issue">Checkout problem</option>
-                        <option value="display-issue">Display/layout issue</option>
-                        <option value="slow-loading">Slow loading</option>
-                        <option value="other">Other</option>
+                        <option value="">Выберите тип проблемы...</option>
+                        <option value="page-not-loading">Страница не загружается</option>
+                        <option value="button-not-working">Кнопка не работает</option>
+                        <option value="checkout-issue">Проблема с оформлением заказа</option>
+                        <option value="display-issue">Проблема с отображением</option>
+                        <option value="slow-loading">Медленная загрузка</option>
+                        <option value="other">Другое</option>
                     </select>
                 </div>
 
                 <div>
-                    <label for="userEmail">Your email (optional)</label>
+                    <label for="userEmail">Ваш email (опционально)</label>
                     <input type="email" id="userEmail" placeholder="your@email.com">
                 </div>
 
                 <div>
-                    <label for="problemDescription">Describe the problem</label>
-                    <textarea id="problemDescription" required placeholder="Please describe what you were trying to do and what went wrong..."></textarea>
-                </div>
-
-                <div class="screenshot-area">
-                    📸 Screenshot automatically captured<br>
-                    <small>Browser info and page URL included</small>
+                    <label for="problemDescription">Описание проблемы</label>
+                    <textarea id="problemDescription" required placeholder="Опишите, что вы пытались сделать и что пошло не так..."></textarea>
                 </div>
 
                 <div class="feedback-actions">
-                    <button type="button" class="feedback-btn-secondary" onclick="closeFeedback()">Cancel</button>
-                    <button type="submit" class="feedback-btn-primary">Send Report</button>
+                    <button type="button" class="feedback-btn-secondary" onclick="closeFeedback()">Отмена</button>
+                    <button type="submit" class="feedback-btn-primary">Отправить отчет</button>
                 </div>
             </form>
         </div>
 
         <div id="successMessage" class="success-message" style="display: none;">
-            <h3>✅ Thank you!</h3>
-            <p>We've received your report and will investigate the issue right away.</p>
-            <p>We'll keep you updated via email if you provided one.</p>
-            <button class="feedback-btn-primary" onclick="closeFeedback()">Close</button>
+            <h3>✅ Спасибо!</h3>
+            <p>Мы получили ваш отчет и сразу займемся расследованием проблемы.</p>
+            <p>Мы будем держать вас в курсе по email, если вы его указали.</p>
+            <button class="feedback-btn-primary" onclick="closeFeedback()">Закрыть</button>
         </div>
     </div>
 </div>
@@ -393,8 +454,130 @@
 }
 
 .feedback-btn:hover {
-    background: #3F46E5;
+    background: #b60e0e;
     transform: translateX(-3px);
+}
+
+/* Стили для скриншота */
+.screenshot-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: none;
+    cursor: crosshair;
+}
+
+.screenshot-overlay.active {
+    display: block;
+}
+
+#annotationCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+}
+
+.screenshot-toolbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    z-index: 10000;
+}
+
+.toolbar-section {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    border-right: 1px solid #e2e8f0;
+    padding-right: 16px;
+}
+
+.toolbar-section:last-child {
+    border-right: none;
+    padding-right: 0;
+}
+
+.tool-btn, .action-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    color: #64748b;
+}
+
+.tool-btn:hover, .action-btn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.tool-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+}
+
+.color-picker {
+    display: flex;
+    gap: 4px;
+}
+
+.color-btn {
+    width: 24px;
+    height: 24px;
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.color-btn.active {
+    border-color: #1e293b;
+    transform: scale(1.1);
+}
+
+.cancel-btn, .save-btn {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cancel-btn {
+    background: #f8fafc;
+    color: #64748b;
+}
+
+.save-btn {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.save-btn:hover {
+    background: #b60e0e;
 }
 
 .feedback-popup {
@@ -404,7 +587,7 @@
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.5);
-    z-index: 1001;
+    z-index: 10001;
     display: none;
     align-items: center;
     justify-content: center;
@@ -478,6 +661,13 @@
     gap: 16px;
 }
 
+.screenshot-preview {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px;
+    background: #f8fafc;
+}
+
 .feedback-form label {
     font-weight: 600;
     color: #1e293b;
@@ -509,7 +699,7 @@
 .feedback-form select:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    box-shadow: 0 0 0 3px rgba(201, 15, 15, 0.1);
 }
 
 .feedback-actions {
@@ -549,23 +739,12 @@
 }
 
 .feedback-btn-primary:hover {
-    background: #3F46E5;
+    background: #b60e0e;
 }
 
 .feedback-btn-primary:disabled {
     background: #94a3b8;
     cursor: not-allowed;
-}
-
-.screenshot-area {
-    border: 1px dashed #d1d5db;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    color: #64748b;
-    font-size: 14px;
-    margin: 16px 0;
-    background: #f8fafc;
 }
 
 .success-message {
@@ -598,91 +777,348 @@
     .feedback-btn-primary {
         width: 100%;
     }
+
+    .screenshot-toolbar {
+        flex-direction: column;
+        gap: 8px;
+        padding: 8px;
+        max-width: 90%;
+    }
+
+    .toolbar-section {
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 8px;
+        padding-right: 0;
+    }
+
+    .toolbar-section:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
 }
 </style>
 
 <script>
-function openFeedback() {
-    document.getElementById('feedbackPopup').classList.add('active');
-    document.body.style.overflow = 'hidden';
+// HTML2Canvas library for screenshots
+const loadHtml2Canvas = () => {
+    if (window.html2canvas) return Promise.resolve();
+
+    return new Promise((resolve) => {
+        const script = document.createElement('script');
+        script.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
+        script.onload = resolve;
+        document.head.appendChild(script);
+    });
+};
+
+// Переменные для аннотаций
+let isDrawing = false;
+let currentTool = 'arrow';
+let currentColor = '#ff0000';
+let annotations = [];
+let canvas, ctx;
+let startX, startY;
+let backgroundImage = null;
+
+async function startScreenshot() {
+    try {
+        // Загружаем html2canvas если его нет
+        await loadHtml2Canvas();
+
+        // Создаем скриншот страницы
+        const screenshotCanvas = await html2canvas(document.body, {
+            height: window.innerHeight,
+            width: window.innerWidth,
+            scrollX: 0,
+            scrollY: 0,
+            useCORS: true,
+            allowTaint: true,
+            scale: 1
+        });
+
+        // Показываем оверлей
+        const overlay = document.getElementById('screenshotOverlay');
+        overlay.classList.add('active');
+
+        // Инициализируем canvas
+        initCanvas();
+
+        // Отображаем скриншот как фон
+        displayScreenshotBackground(screenshotCanvas);
+
+        // Инициализируем инструменты
+        initTools();
+
+    } catch (error) {
+        console.error('Ошибка создания скриншота:', error);
+        alert('Не удалось создать скриншот. Попробуйте еще раз.');
+    }
+}
+
+function initCanvas() {
+    canvas = document.getElementById('annotationCanvas');
+    ctx = canvas.getContext('2d');
+
+    // Устанавливаем размеры canvas
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Обработчики событий для рисования
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('touchstart', handleTouch);
+    canvas.addEventListener('touchmove', handleTouch);
+    canvas.addEventListener('touchend', handleTouch);
+}
+
+function displayScreenshotBackground(screenshotCanvas) {
+    // Создаем фоновое изображение из скриншота
+    const overlay = document.getElementById('screenshotOverlay');
+    const dataURL = screenshotCanvas.toDataURL();
+
+    overlay.style.backgroundImage = `url(${dataURL})`;
+    overlay.style.backgroundSize = 'cover';
+    overlay.style.backgroundPosition = 'top left';
+    overlay.style.backgroundRepeat = 'no-repeat';
+
+    // Сохраняем для финального скриншота
+    backgroundImage = screenshotCanvas;
+}
+
+function initTools() {
+    // Инициализация кнопок инструментов
+    document.querySelectorAll('.tool-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentTool = btn.dataset.tool;
+            updateCursor();
+        });
+    });
+
+    // Инициализация цветов
+    document.querySelectorAll('.color-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentColor = btn.dataset.color;
+        });
+    });
+}
+
+function updateCursor() {
+    const overlay = document.getElementById('screenshotOverlay');
+    switch(currentTool) {
+        case 'pen':
+            overlay.style.cursor = 'crosshair';
+            break;
+        case 'arrow':
+        case 'rectangle':
+        case 'circle':
+            overlay.style.cursor = 'crosshair';
+            break;
+        default:
+            overlay.style.cursor = 'crosshair';
+    }
+}
+
+function startDrawing(e) {
+    isDrawing = true;
+    const rect = canvas.getBoundingClientRect();
+    startX = e.clientX - rect.left;
+    startY = e.clientY - rect.top;
+
+    if (currentTool === 'pen') {
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+    }
+}
+
+function draw(e) {
+    if (!isDrawing) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const currentX = e.clientX - rect.left;
+    const currentY = e.clientY - rect.top;
+
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+
+    if (currentTool === 'pen') {
+        ctx.lineTo(currentX, currentY);
+        ctx.stroke();
+    }
+}
+
+function stopDrawing(e) {
+    if (!isDrawing) return;
+    isDrawing = false;
+
+    const rect = canvas.getBoundingClientRect();
+    const endX = e.clientX - rect.left;
+    const endY = e.clientY - rect.top;
+
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+
+    switch(currentTool) {
+        case 'arrow':
+            drawArrow(startX, startY, endX, endY);
+            break;
+        case 'rectangle':
+            ctx.strokeRect(startX, startY, endX - startX, endY - startY);
+            break;
+        case 'circle':
+            const radius = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+            ctx.beginPath();
+            ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+            ctx.stroke();
+            break;
+    }
+
+    // Сохраняем состояние для отмены действий
+    annotations.push(canvas.toDataURL());
+}
+
+function drawArrow(fromX, fromY, toX, toY) {
+    const headLength = 15;
+    const angle = Math.atan2(toY - fromY, toX - fromY);
+
+    // Рисуем линию
+    ctx.beginPath();
+    ctx.moveTo(fromX, fromY);
+    ctx.lineTo(toX, toY);
+    ctx.stroke();
+
+    // Рисуем наконечник стрелки
+    ctx.beginPath();
+    ctx.moveTo(toX, toY);
+    ctx.lineTo(toX - headLength * Math.cos(angle - Math.PI / 6), toY - headLength * Math.sin(angle - Math.PI / 6));
+    ctx.moveTo(toX, toY);
+    ctx.lineTo(toX - headLength * Math.cos(angle + Math.PI / 6), toY - headLength * Math.sin(angle + Math.PI / 6));
+    ctx.stroke();
+}
+
+function handleTouch(e) {
+    e.preventDefault();
+    const touch = e.touches[0] || e.changedTouches[0];
+    const mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' :
+                                     e.type === 'touchmove' ? 'mousemove' : 'mouseup', {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+    });
+    canvas.dispatchEvent(mouseEvent);
+}
+
+function clearAnnotations() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    annotations = [];
+}
+
+function undoAnnotation() {
+    if (annotations.length > 0) {
+        annotations.pop();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (annotations.length > 0) {
+            const img = new Image();
+            img.onload = () => {
+                ctx.drawImage(img, 0, 0);
+            };
+            img.src = annotations[annotations.length - 1];
+        }
+    }
+}
+
+function cancelScreenshot() {
+    document.getElementById('screenshotOverlay').classList.remove('active');
+    clearAnnotations();
+}
+
+async function finishScreenshot() {
+    try {
+        // Создаем финальное изображение, объединяя фон и аннотации
+        const finalCanvas = document.createElement('canvas');
+        finalCanvas.width = canvas.width;
+        finalCanvas.height = canvas.height;
+        const finalCtx = finalCanvas.getContext('2d');
+
+        // Рисуем фоновый скриншот
+        if (backgroundImage) {
+            finalCtx.drawImage(backgroundImage, 0, 0);
+        }
+
+        // Рисуем аннотации сверху
+        finalCtx.drawImage(canvas, 0, 0);
+
+        // Конвертируем в base64
+        const finalScreenshot = finalCanvas.toDataURL('image/png');
+
+        // Скрываем оверлей
+        document.getElementById('screenshotOverlay').classList.remove('active');
+
+        // Показываем форму отправки с превью
+        showFeedbackForm(finalScreenshot);
+
+    } catch (error) {
+        console.error('Ошибка при создании финального скриншота:', error);
+        alert('Ошибка при обработке скриншота');
+    }
+}
+
+function showFeedbackForm(screenshot) {
+    const popup = document.getElementById('feedbackPopup');
+    const preview = document.getElementById('screenshotPreview');
+
+    preview.src = screenshot;
+    popup.classList.add('active');
+
+    // Сохраняем скриншот для отправки
+    window.currentScreenshot = screenshot;
 }
 
 function closeFeedback() {
     document.getElementById('feedbackPopup').classList.remove('active');
-    document.body.style.overflow = 'auto';
+    document.getElementById('feedbackForm').style.display = 'block';
+    document.getElementById('successMessage').style.display = 'none';
 
-    // Сброс формы при закрытии
-    setTimeout(() => {
-        document.getElementById('feedbackForm').style.display = 'block';
-        document.getElementById('successMessage').style.display = 'none';
-        document.querySelector('.feedback-form').reset();
-    }, 300);
+    // Очищаем форму
+    document.querySelector('.feedback-form').reset();
 }
 
 function submitFeedback(event) {
     event.preventDefault();
 
-    const formData = {
-        type: document.getElementById('problemType').value,
-        email: document.getElementById('userEmail').value,
-        description: document.getElementById('problemDescription').value,
-        url: window.location.href,
-        userAgent: navigator.userAgent,
-        timestamp: new Date().toISOString(),
-        viewport: {
-            width: window.innerWidth,
-            height: window.innerHeight
-        }
-    };
+    // Симуляция отправки
+    const submitBtn = event.target.querySelector('.feedback-btn-primary');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправка...';
 
-    // Имитация отправки данных
-    console.log('Feedback submitted:', formData);
+    setTimeout(() => {
+        document.getElementById('feedbackForm').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
 
-    // Показываем сообщение об успехе
-    document.getElementById('feedbackForm').style.display = 'none';
-    document.getElementById('successMessage').style.display = 'block';
+        // Здесь можно добавить реальную отправку данных на сервер
+        console.log('Screenshot data:', window.currentScreenshot);
+        console.log('Form data:', {
+            type: document.getElementById('problemType').value,
+            email: document.getElementById('userEmail').value,
+            description: document.getElementById('problemDescription').value
+        });
 
-    // В реальном приложении здесь был бы API запрос:
-    // fetch('/api/feedback', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(formData)
-    // });
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Отправить отчет';
+    }, 2000);
 }
 
-// Закрытие попапа при клике вне модального окна
-document.getElementById('feedbackPopup').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeFeedback();
-    }
-});
-
-// Закрытие попапа при нажатии Escape
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeFeedback();
-    }
-});
-
-// Scroll reveal анимация
+// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
-            }
-        });
-    }, observerOptions);
-
-    // Наблюдаем за всеми элементами с data-reveal
-    document.querySelectorAll('[data-reveal]').forEach(el => {
-        observer.observe(el);
-    });
+    // Удаляем старый JavaScript для feedback
+    // Новый функционал уже включен выше
 });
 </script>
 
