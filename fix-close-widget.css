@@ -13,7 +13,7 @@
 .fix-close-widget .ticket.progress{border-left-color:#3b82f6;}
 .fix-close-widget .ticket.done{border-left-color:#16a34a;}
 /* Toast */
-.fix-close-widget .toast{position:absolute;top:12px;right:-260px;width:240px;padding:12px 14px;background:#c90f0f;color:#ffffff;border-radius:10px;box-shadow:0 10px 25px rgb(0 0 0 / 0.15);font-size:13px;display:flex;gap:8px;align-items:center;transition:right .5s ease,opacity .3s ease;opacity:0;z-index:3;font-weight:500;}
+.fix-close-widget .toast{position:absolute;bottom:12px;right:-260px;width:240px;padding:12px 14px;background:#c90f0f;color:#ffffff;border-radius:10px;box-shadow:0 10px 25px rgb(0 0 0 / 0.15);font-size:13px;display:flex;gap:8px;align-items:center;transition:right .5s ease,opacity .3s ease;opacity:0;z-index:3;font-weight:500;}
 .fix-close-widget .toast.show{right:12px;opacity:1;}
 /* Chat panel */
 .fix-close-widget .chat{position:absolute;inset:0;padding:16px 18px;background:#ffffff;display:flex;flex-direction:column;gap:10px;opacity:0;transition:opacity .5s ease;}

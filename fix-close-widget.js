@@ -78,16 +78,20 @@
 
         const S = opts.speedMultiplier ? 1 / opts.speedMultiplier : 1;
 
-        function reset() {
+        function resetTicket() {
             ticket.getAnimations().forEach(a => a.cancel());
             ticket.style.left = COL_POS[0] + '%';
             ticket.style.top = '44px';
             ticket.style.transform = 'scale(1)';
             ticket.classList.remove('progress', 'done');
             ticket.classList.add('backlog');
+        }
+
+        function reset() {
+            resetTicket();
             toast.classList.remove('show');
-            toast.style.right = '-260px';
-            toast.style.opacity = 0;
+            toast.style.right = '';
+            toast.style.opacity = '';
             chat.style.opacity = 0;
             followBubble.style.opacity = 0;
             thanksBubble.style.opacity = 0;
@@ -116,6 +120,10 @@
                     return arc(COL_POS[1], COL_POS[2]).then(() => {
                         ticket.classList.remove('progress');
                         ticket.classList.add('done');
+
+                        setTimeout(() => {
+                            resetTicket();
+                        }, 2000);
                     });
                 });
             }, 1300 * S);
@@ -124,7 +132,7 @@
                 toast.classList.remove('show');
                 chat.style.opacity = 1;
                 badge.style.opacity = 0;
-            }, 4600 * S);
+            }, 5000 * S);
             setTimeout(() => { followBubble.style.opacity = 1; }, 5700 * S);
             setTimeout(() => {
                 thanksBubble.style.opacity = 1;
@@ -132,8 +140,7 @@
             setTimeout(() => {
                 launchConfetti();
             }, 6700 * S);
-            setTimeout(() => { chat.style.opacity = 0; }, 8200 * S);
-            setTimeout(() => { reset(); loop(); }, 8300 * S);
+            setTimeout(() => { chat.style.opacity = 0; loop();}, 8200 * S);
         }
         loop();
     }
