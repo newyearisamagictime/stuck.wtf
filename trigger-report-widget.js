@@ -192,6 +192,7 @@
 
         const CSS=`/* ===== Trigger + Report Scene ===== */
 .trigger-report-widget *{box-sizing:border-box;margin:0;padding:0;font-family:'Noto Sans', sans-serif;}
+.trigger-report-widget .fa, .trigger-report-widget .fas, .trigger-report-widget .far, .trigger-report-widget .fal, .trigger-report-widget .fab, .trigger-report-widget .fa-solid, .trigger-report-widget .fa-regular, .trigger-report-widget .fa-light, .trigger-report-widget .fa-brands{font-family:'Font Awesome 6 Free', 'Font Awesome 6 Pro', 'Font Awesome 5 Free', 'Font Awesome 5 Pro', FontAwesome !important;}
 .trigger-report-widget{width:500px;height:200px;border:1px solid #e2e8f0;position:relative;overflow:hidden;background:#ffffff;border-radius:12px;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);}
 .trigger-report-widget .scene{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease;}
 /* ----- Dashboard card ----- */
@@ -217,8 +218,8 @@
 .trigger-report-widget .badge:hover{background:#b10e0e;transform:translateY(-50%) translateX(-3px);}
 /* ----- Overlay & toolbar ----- */
 .trigger-report-widget .overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transition:opacity .4s ease;z-index:10;}
+.trigger-report-widget .tool-bar{position:absolute;top:20px;left:50%;transform:translateX(-50%);display:flex;gap:10px;opacity:0;transition:opacity .3s ease;}
 .trigger-report-widget .highlight{width:70%;height:44%;border:2px dashed #f59e0b;background:rgba(245,158,11,.15);border-radius:8px;}
-.trigger-report-widget .tool-bar{display:flex;gap:10px;margin-top:12px;opacity:0;transition:opacity .3s ease;}
 .trigger-report-widget .tool-icon{width:28px;height:28px;border-radius:6px;background:#ffffff;display:flex;justify-content:center;align-items:center;font-size:14px;color:#c90f0f;box-shadow:0 2px 4px rgb(0 0 0 / 0.1);cursor:pointer;transition:all 0.2s ease;}
 .trigger-report-widget .tool-icon:hover{transform:translateY(-1px);box-shadow:0 4px 8px rgb(0 0 0 / 0.15);}
 .trigger-report-widget .send-btn{margin-top:16px;padding:10px 20px;border:none;border-radius:8px;background:#c90f0f;color:#ffffff;font-size:13px;cursor:pointer;transition:all .3s ease;opacity:0;font-weight:500;font-family:'Noto Sans', sans-serif;display:flex;align-items:center;gap:6px;}
