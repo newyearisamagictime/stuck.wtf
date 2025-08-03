@@ -37,23 +37,6 @@
             if(opts.width) el.style.width=opts.width+'px';
             if(opts.height) el.style.height=opts.height+'px';
 
-            el.insertAdjacentHTML('afterbegin',`
-        <div class="scene scene-copy">
-          <div class="input-wrapper">
-            <input class="code-input" readonly value="&lt;script src=&quot;widget.js&quot;&gt;&lt;/script&gt;" />
-            <button class="copy-btn">Copy</button>
-            <div class="copied-msg">✓ Copied</div>
-          </div>
-        </div>
-        <div class="scene scene-editor">
-          <div class="editor-window">
-            <div class="titlebar">theme.html</div>
-            <pre class="code">&lt;head&gt;\n  <span class="type-script"></span>\n&lt;/head&gt;\n&lt;body&gt;\n  ...\n&lt;/body&gt;</pre>
-            <button class="save-btn">Save</button>
-            <div class="saved-msg">✓ Saved</div>
-          </div>
-        </div>`);
-
             const sceneCopy   = el.querySelector('.scene-copy');
             const sceneEditor = el.querySelector('.scene-editor');
             const copyBtn     = el.querySelector('.copy-btn');
@@ -100,23 +83,6 @@
             if(opts.width) el.style.width=opts.width+'px';
             if(opts.height) el.style.height=opts.height+'px';
 
-            el.insertAdjacentHTML('afterbegin',`
-        <div class="scene scene-page">
-          <div class="page">
-            <div class="line long"></div>
-            <div class="line med"></div>
-            <div class="line long"></div>
-            <div class="line short"></div>
-            <button class="report-btn">Report a problem</button>
-          </div>
-        </div>
-        <div class="scene scene-overlay">
-          <div class="overlay">
-            <div class="highlight"></div>
-            <button class="send-btn">Send</button>
-            <div class="sent-msg">✓ Sent</div>
-          </div>
-        </div>`);
 
             const scenePage=el.querySelector('.scene-page');
             const sceneOverlay=el.querySelector('.scene-overlay');
