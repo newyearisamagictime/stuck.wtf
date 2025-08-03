@@ -63,15 +63,13 @@
                 el.insertAdjacentHTML('afterbegin', htmlCache);
 
                 /* Elements refs */
-                const toast        = el.querySelector('.toast');
-                const panel        = el.querySelector('.panel');
+                const screenshot   = el.querySelector('.screenshot');
                 const scrTab       = el.querySelector('.tab-scr');
                 const conTab       = el.querySelector('.tab-con');
+                const chatTab      = el.querySelector('.tab-chat');
                 const consoleBox   = el.querySelector('.console');
                 const chat         = el.querySelector('.chat');
                 const bubbles      = Array.from(el.querySelectorAll('.bubble'));
-                const integWrap    = el.querySelector('.integration-wrap');
-                const jiraIcon     = integWrap.querySelector('.integration');
                 const content      = el.querySelector('.content');
 
                 /* Speed multiplier */
@@ -79,40 +77,38 @@
 
                 /* Reset */
                 function reset(){
-                    toast.classList.remove('show','synced');toast.style.right='-260px';toast.style.opacity='0';toast.querySelector('.title').textContent='New bug report';toast.querySelector('.sub').textContent='Click to view';
-                    panel.classList.remove('show');
-                    scrTab.classList.add('active');conTab.classList.remove('active');consoleBox.classList.remove('active'); // we start in Screenshot tab
-                    chat.classList.remove('show');bubbles.forEach(b=>b.classList.remove('show'));
-                    integWrap.classList.remove('show');jiraIcon.classList.remove('bounce','success');
+                    scrTab.classList.add('active');
+                    conTab.classList.remove('active');
+                    chatTab.classList.remove('active');
+                    screenshot.style.display='flex';
+                    consoleBox.classList.remove('active');
+                    chat.classList.remove('show');
+                    bubbles.forEach(b=>b.classList.remove('show'));
                     if(content) content.scrollTop = 0;
                 }
 
                 /* Loop sequence */
                 function loop(){
                     reset();
-                    /* 1) Toast slides in */
-                    setTimeout(()=>{toast.classList.add('show');},600*S);
-                    /* 2) Open panel */
-                    setTimeout(()=>{toast.classList.remove('show');panel.classList.add('show');},2000*S);
-                    /* 3) Switch to console tab (error already present) */
+                    /* 1) show screenshot for a moment */
                     setTimeout(()=>{
-                        scrTab.classList.remove('active');conTab.classList.add('active');consoleBox.classList.add('active');
-                    },2600*S);
-                    /* 4) Show chat bubbles staggered */
-                    setTimeout(()=>{chat.classList.add('show');bubbles[0].classList.add('show');if(content) content.scrollTop = content.scrollHeight;},3400*S);
-                    setTimeout(()=>{bubbles[1].classList.add('show');if(content) content.scrollTop = content.scrollHeight;},4200*S);
-                    /* 5) Show Jira icon with bounce */
-                    setTimeout(()=>{integWrap.classList.add('show');jiraIcon.classList.add('bounce','success');if(content) content.scrollTop = content.scrollHeight;},5400*S);
-                    /* 6) Close panel */
-                    setTimeout(()=>{panel.classList.remove('show');},6800*S);
-                    /* 7) Toast synced */
+                        scrTab.classList.remove('active');
+                        conTab.classList.add('active');
+                        screenshot.style.display='none';
+                        consoleBox.classList.add('active');
+                    },2000*S);
+                    /* 2) switch to chat tab */
                     setTimeout(()=>{
-                        toast.querySelector('.title').textContent='Report synced';toast.querySelector('.sub').textContent='';toast.classList.add('synced','show');
-                    },7200*S);
-                    /* 8) Toast slide out */
-                    setTimeout(()=>{toast.classList.remove('show');},8400*S);
-                    /* 9) Immediate restart */
-                    setTimeout(loop,8500*S);
+                        conTab.classList.remove('active');
+                        chatTab.classList.add('active');
+                        consoleBox.classList.remove('active');
+                        chat.classList.add('show');
+                        bubbles[0].classList.add('show');
+                        if(content) content.scrollTop = content.scrollHeight;
+                        setTimeout(()=>{bubbles[1].classList.add('show');if(content) content.scrollTop = content.scrollHeight;},800*S);
+                    },4000*S);
+                    /* 3) restart */
+                    setTimeout(loop,8000*S);
                 }
                 loop();
             } catch (e) {
