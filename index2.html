@@ -176,8 +176,8 @@
 
             <!-- Step 4: Image left, Text right -->
             <div class="grid md:grid-cols-2 gap-8 items-center" data-reveal>
-                <div class="bg-slate-100 rounded-lg p-4 flex items-center justify-center md:order-1">
-                    <img src="./4.png" alt="Fix & Close" class="max-w-full h-auto">
+                <div class="bg-slate-100 rounded-lg p-4 flex items-center justify-center md:order-1" id="block4">
+
                 </div>
                 <div class="md:order-2">
                     <div class="flex items-center mb-4">
@@ -1081,6 +1081,174 @@ triggerReportWidget('#block2');
 * ===================================================================== */
 
     actionReportWidget('#block3', { width: 540, height: 220 });
+
+    /* =====================================================================
+ * Stuck.wtf Widget Library v2.4  (adds Fix‑Close widget)
+ * ---------------------------------------------------------------------
+ *  ✓ copySaveWidget()      — "Copy & Save"
+ *  ✓ reportIssueWidget()   — shopper flow «Report a problem»
+ *  ✓ triggerReportWidget() — dashboard trigger + shopper flow
+ *  ✓ actionReportWidget()  — toast → side‑panel with console + Jira
+ *  ✓ fixCloseWidget()      — ticket → done, toast, "All fixed!", confetti
+ * ---------------------------------------------------------------------
+ *  Single JS include, each widget injects scoped CSS via <style id="…">
+ *  Call widgetFn(selector, { width, height, speedMultiplier })
+ * ===================================================================== */
+
+    (function (global) {
+        "use strict";
+
+        /* ------------------------------------------------------------------ */
+        /* Utilities                                                           */
+        /* ------------------------------------------------------------------ */
+        function injectStyles(id, css) {
+            if (!document.getElementById(id)) {
+                const s = document.createElement('style');
+                s.id = id;
+                s.textContent = css;
+                document.head.appendChild(s);
+            }
+        }
+
+        /* ------------------------------------------------------------------ */
+        /* PREVIOUS WIDGETS v2.3 (copySave, reportIssue, triggerReport, actionReport)
+           are included exactly as in v2.3 (omitted here for brevity).
+           Assume their constructors already defined on global object.         */
+        /* ------------------------------------------------------------------ */
+
+        /* ==================================================================
+         * fixCloseWidget() — scene 4 "Fix & Close"
+         * ================================================================== */
+        (function(){
+            const STYLE_ID = 'fix-close-style';
+
+            const CSS = `/* ===== Fix & Close ===== */
+.fix-close-widget *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',Consolas,monospace;}
+.fix-close-widget{width:500px;height:200px;border:1px solid #d9d9d9;position:relative;overflow:hidden;background:#fff;border-radius:8px;}
+/* Kanban board */
+.fix-close-widget .board{display:flex;height:100%;}
+.fix-close-widget .col{flex:1;border-right:1px solid #e0e0e0;position:relative;padding-top:14px;}
+.fix-close-widget .col:last-child{border-right:none;}
+.fix-close-widget .col-title{font-size:11px;text-align:center;color:#666;margin-bottom:4px;}
+.fix-close-widget .ticket{width:86%;margin:0 auto;padding:6px 8px;background:#fff;border:1px solid #ccc;border-radius:4px;font-size:11px;box-shadow:0 2px 4px rgba(0,0,0,.08);transition:transform .4s ease,left .6s ease;position:absolute;left:7%;top:32px;}
+.fix-close-widget .ticket.resolved{border-left:4px solid #28a745;}
+/* Toast */
+.fix-close-widget .toast{position:absolute;top:12px;right:-260px;width:240px;padding:8px 10px;background:#0069ed;color:#fff;border-radius:6px;box-shadow:0 3px 8px rgba(0,0,0,.18);font-size:12px;display:flex;gap:6px;align-items:center;transition:right .5s ease,opacity .3s ease;opacity:0;z-index:3;}
+.fix-close-widget .toast.show{right:12px;opacity:1;}
+/* Chat panel */
+.fix-close-widget .chat{position:absolute;inset:0;padding:14px 16px;background:#fff;display:flex;flex-direction:column;gap:8px;opacity:0;transition:opacity .5s ease;}
+.fix-close-widget .bubble{max-width:78%;padding:4px 8px;border-radius:10px;font-size:11px;}
+.fix-close-widget .bubble.user{background:#f1f1f1;align-self:flex-start;}
+.fix-close-widget .bubble.dev{background:#0069ed;color:#fff;align-self:flex-end;}
+.fix-close-widget .bubble.fixed{background:#28a745;color:#fff;align-self:center;font-weight:600;}
+.fix-close-widget .cta{margin-top:auto;align-self:center;padding:6px 16px;background:#0069ed;color:#fff;border:none;border-radius:4px;font-size:12px;cursor:pointer;opacity:0;transition:opacity .3s ease;}
+/* Confetti */
+.fix-close-widget .confetti{position:absolute;width:6px;height:6px;border-radius:1px;opacity:0;}
+@keyframes drop{to{transform:translateY(220px) rotate(360deg);opacity:1;}}
+/* Response badge */
+.fix-close-widget .badge{position:absolute;left:8px;bottom:8px;font-size:10px;background:rgba(0,0,0,.7);color:#fff;padding:2px 6px;border-radius:4px;opacity:0;transition:opacity .3s ease;}`;
+
+            function fixCloseWidget(selector, opts={}){
+                const el = typeof selector==='string'?document.querySelector(selector):selector;
+                if(!el){console.error('fixCloseWidget: container not found',selector);return;}
+                injectStyles(STYLE_ID,CSS);
+                el.innerHTML='';
+                el.classList.add('fix-close-widget');
+                if(opts.width) el.style.width = opts.width+'px';
+                if(opts.height) el.style.height = opts.height+'px';
+
+                /* Build DOM */
+                el.insertAdjacentHTML('afterbegin',`
+        <div class="board">
+          <div class="col col-backlog"><div class="col-title">Backlog</div></div>
+          <div class="col col-progress"><div class="col-title">In Progress</div></div>
+          <div class="col col-done"><div class="col-title">Done</div></div>
+          <div class="ticket">#‑123 Checkout 500 error</div>
+        </div>
+        <div class="toast">🛠️ Bug patched & ticket closed</div>
+        <div class="chat">
+          <div class="bubble user">Hi, I’m stuck on payment 😕</div>
+          <div class="bubble dev">Thanks! I’m on it.</div>
+          <div class="bubble fixed">All fixed! 🎉</div>
+          <button class="cta">Continue checkout</button>
+        </div>
+        <div class="badge">⏱️ Response time: 5m 12s</div>`);
+
+                /* Element refs */
+                const ticket = el.querySelector('.ticket');
+                const colDone = el.querySelector('.col-done');
+                const toast  = el.querySelector('.toast');
+                const chat   = el.querySelector('.chat');
+                const fixedBubble = el.querySelector('.bubble.fixed');
+                const cta    = el.querySelector('.cta');
+                const badge  = el.querySelector('.badge');
+
+                /* Confetti create */
+                function launchConfetti(){
+                    const colors=['#FFC700','#FF0000','#2E3191','#41BBC7','#4CAF50'];
+                    for(let i=0;i<14;i++){
+                        const conf=document.createElement('div');
+                        conf.className='confetti';
+                        conf.style.background=colors[i%colors.length];
+                        conf.style.left=Math.random()*100+'%';
+                        conf.style.top='-10px';
+                        conf.style.transform=`rotate(${Math.random()*360}deg)`;
+                        conf.style.animation=`drop ${1.2+Math.random()*.6}s linear forwards`;
+                        el.appendChild(conf);
+                        setTimeout(()=>conf.remove(),2200);
+                    }
+                }
+
+                const S = opts.speedMultiplier?1/opts.speedMultiplier:1;
+
+                function reset(){
+                    /* ticket back */
+                    ticket.style.left='7%';ticket.style.transform='translateX(0)';ticket.classList.remove('resolved');
+                    toast.classList.remove('show');toast.style.right='-260px';toast.style.opacity=0;
+                    chat.style.opacity=0;fixedBubble.style.opacity=0;cta.style.opacity=0;
+                    badge.style.opacity=0;
+                }
+
+                function loop(){
+                    reset();
+                    /* 1) pulsate */
+                    ticket.animate([{transform:'scale(1)'},{transform:'scale(1.05)'},{transform:'scale(1)'}],{duration:1000*S});
+                    /* 2) move to Done */
+                    setTimeout(()=>{
+                        ticket.classList.add('resolved');
+                        ticket.style.left='68%';
+                    },1200*S);
+                    /* 3) toast */
+                    setTimeout(()=>{toast.classList.add('show');},2200*S);
+                    /* 4) switch to chat */
+                    setTimeout(()=>{toast.classList.remove('show');chat.style.opacity=1;},3000*S);
+                    /* 5) fixed bubble show + confetti */
+                    setTimeout(()=>{fixedBubble.style.opacity=1;launchConfetti();},3800*S);
+                    /* 6) CTA reveal */
+                    setTimeout(()=>{cta.style.opacity=1;},4800*S);
+                    /* 7) collapse chat */
+                    setTimeout(()=>{chat.style.opacity=0;},6200*S);
+                    /* 8) badge */
+                    setTimeout(()=>{badge.style.opacity=1;},6800*S);
+                    /* 9) restart immediately */
+                    setTimeout(loop,6900*S);
+                }
+                loop();
+            }
+            global.fixCloseWidget = fixCloseWidget;
+        })();
+
+    })(window);
+
+    /* =====================================================================
+     * Quick demo (remove in production)
+     * <div id="fix"></div>
+     * <script src="widgetLib.js"><\/script>
+* <script>
+    *   fixCloseWidget('#fix', { width: 540, height: 220 });
+    * <\/script>
+* ===================================================================== */
+    fixCloseWidget('#block4', { width: 540, height: 220 });
 </script>
 
 </body>
