@@ -72,6 +72,7 @@
                 const bubbles      = Array.from(el.querySelectorAll('.bubble'));
                 const integWrap    = el.querySelector('.integration-wrap');
                 const jiraIcon     = integWrap.querySelector('.integration');
+                const content      = el.querySelector('.content');
 
                 /* Speed multiplier */
                 const S = opts.speedMultiplier?1/opts.speedMultiplier:1;
@@ -83,6 +84,7 @@
                     scrTab.classList.add('active');conTab.classList.remove('active');consoleBox.classList.remove('active'); // we start in Screenshot tab
                     chat.classList.remove('show');bubbles.forEach(b=>b.classList.remove('show'));
                     integWrap.classList.remove('show');jiraIcon.classList.remove('bounce','success');
+                    if(content) content.scrollTop = 0;
                 }
 
                 /* Loop sequence */
@@ -97,10 +99,10 @@
                         scrTab.classList.remove('active');conTab.classList.add('active');consoleBox.classList.add('active');
                     },2600*S);
                     /* 4) Show chat bubbles staggered */
-                    setTimeout(()=>{chat.classList.add('show');bubbles[0].classList.add('show');},3400*S);
-                    setTimeout(()=>{bubbles[1].classList.add('show');},4200*S);
+                    setTimeout(()=>{chat.classList.add('show');bubbles[0].classList.add('show');if(content) content.scrollTop = content.scrollHeight;},3400*S);
+                    setTimeout(()=>{bubbles[1].classList.add('show');if(content) content.scrollTop = content.scrollHeight;},4200*S);
                     /* 5) Show Jira icon with bounce */
-                    setTimeout(()=>{integWrap.classList.add('show');jiraIcon.classList.add('bounce','success');},5400*S);
+                    setTimeout(()=>{integWrap.classList.add('show');jiraIcon.classList.add('bounce','success');if(content) content.scrollTop = content.scrollHeight;},5400*S);
                     /* 6) Close panel */
                     setTimeout(()=>{panel.classList.remove('show');},6800*S);
                     /* 7) Toast synced */
