@@ -110,27 +110,30 @@
                 { transform: 'scale(1)' }
             ], { duration: 1100 * S });
             setTimeout(() => {
-                ticket.classList.remove('backlog');
-                ticket.classList.add('progress');
                 arc(COL_POS[0], COL_POS[1]).then(() => {
-                    ticket.classList.remove('progress');
-                    ticket.classList.add('done');
-                    return arc(COL_POS[1], COL_POS[2]);
+                    ticket.classList.remove('backlog');
+                    ticket.classList.add('progress');
+                    return arc(COL_POS[1], COL_POS[2]).then(() => {
+                        ticket.classList.remove('progress');
+                        ticket.classList.add('done');
+                    });
                 });
             }, 1300 * S);
             setTimeout(() => { toast.classList.add('show'); }, 3700 * S);
             setTimeout(() => {
                 toast.classList.remove('show');
                 chat.style.opacity = 1;
+                badge.style.opacity = 0;
             }, 4600 * S);
             setTimeout(() => { followBubble.style.opacity = 1; }, 5700 * S);
             setTimeout(() => {
                 thanksBubble.style.opacity = 1;
+            }, 6200 * S);
+            setTimeout(() => {
                 launchConfetti();
             }, 6700 * S);
             setTimeout(() => { chat.style.opacity = 0; }, 8200 * S);
-            setTimeout(() => { badge.style.opacity = 1; }, 8800 * S);
-            setTimeout(() => { reset(); loop(); }, 8900 * S);
+            setTimeout(() => { reset(); loop(); }, 8300 * S);
         }
         loop();
     }
