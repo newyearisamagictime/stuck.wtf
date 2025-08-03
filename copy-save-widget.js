@@ -72,11 +72,19 @@
         const sceneCopy = el.querySelector('.scene-copy');
         const sceneEditor = el.querySelector('.scene-editor');
         const copyBtn = el.querySelector('.copy-btn');
-        const copiedMsg = el.querySelector('.copied-msg');
         const saveBtn = el.querySelector('.save-btn');
-        const savedMsg = el.querySelector('.saved-msg');
         const typeSpan = el.querySelector('.type-script');
         const tag = '<script src="widget.js"></' + 'script>';
+
+        copyBtn.addEventListener('click', () => {
+            copyBtn.classList.add('clicked');
+            copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copy it';
+        });
+
+        saveBtn.addEventListener('click', () => {
+            saveBtn.classList.add('clicked');
+            saveBtn.innerHTML = '<i class="fa-solid fa-check"></i> Saved';
+        });
 
         const T = opts.speedMultiplier ? 1 / opts.speedMultiplier : 1;
 
@@ -85,14 +93,17 @@
             sceneEditor.style.opacity = 0;
             copyBtn.classList.remove('clicked');
             saveBtn.classList.remove('clicked');
-            copiedMsg.style.opacity = 0;
-            savedMsg.style.opacity = 0;
+            copyBtn.innerHTML = 'Copy';
+            saveBtn.innerHTML = 'Save';
             typeSpan.textContent = '';
         }
 
         function loop() {
             reset();
-            setTimeout(() => { copyBtn.classList.add('clicked'); copiedMsg.style.opacity = 1; }, 1000 * T);
+            setTimeout(() => {
+                copyBtn.classList.add('clicked');
+                copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+            }, 1000 * T);
             setTimeout(() => { sceneCopy.style.opacity = 0; sceneEditor.style.opacity = 1; }, 2200 * T);
             setTimeout(() => {
                 let i = 0;
@@ -101,7 +112,10 @@
                     if (i > tag.length) clearInterval(t);
                 }, 50 * T);
             }, 2500 * T);
-            setTimeout(() => { saveBtn.classList.add('clicked'); savedMsg.style.opacity = 1; }, 5200 * T);
+            setTimeout(() => {
+                saveBtn.classList.add('clicked');
+                saveBtn.innerHTML = '<i class="fa-solid fa-check"></i> Saved';
+            }, 5200 * T);
             setTimeout(() => { sceneEditor.style.opacity = 0; }, 6700 * T);
             setTimeout(loop, 8200 * T);
         }
