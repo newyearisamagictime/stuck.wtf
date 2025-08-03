@@ -18,21 +18,23 @@
     }
 
     const CSS = `/* ===== Copy Save ===== */
-.copy-save-widget *{box-sizing:border-box;margin:0;padding:0;font-family:Consolas,monospace;}
-.copy-save-widget{width:500px;height:200px;border:1px solid #d9d9d9;position:relative;overflow:hidden;background:#fff;border-radius:8px;}
+.copy-save-widget *{box-sizing:border-box;margin:0;padding:0;font-family:'Noto Sans', sans-serif;}
+.copy-save-widget{width:500px;height:200px;border:1px solid #e2e8f0;position:relative;overflow:hidden;background:#ffffff;border-radius:12px;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);}
 .copy-save-widget .scene{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease;}
 .copy-save-widget .scene-editor,.copy-save-widget .copied-msg,.copy-save-widget .saved-msg{opacity:0;}
-.copy-save-widget .input-wrapper{display:flex;align-items:center;gap:8px;}
-.copy-save-widget .code-input{width:300px;padding:6px 8px;border:1px solid #ccc;background:#fafafa;font-size:12px;border-radius:4px;}
-.copy-save-widget .copy-btn,.copy-save-widget .save-btn{padding:6px 14px;border:none;border-radius:4px;background:#0069ed;color:#fff;cursor:pointer;transition:transform .1s ease;}
-.copy-save-widget .copy-btn.clicked,.copy-save-widget .save-btn.clicked{transform:scale(0.9);}
-.copy-save-widget .copied-msg,.copy-save-widget .saved-msg{margin-left:8px;color:#28a745;font-weight:600;transition:opacity .3s ease;user-select:none;}
-.copy-save-widget .editor-window{width:90%;height:80%;background:#1e1e1e;color:#dcdcdc;border-radius:6px;padding:12px;position:relative;display:flex;flex-direction:column;}
-.copy-save-widget .titlebar{background:#333;padding:4px 10px;margin:-12px -12px 10px;font-size:12px;color:#fff;border-top-left-radius:6px;border-top-right-radius:6px;}
-.copy-save-widget .code{flex:1;font-size:12px;line-height:1.2;white-space:pre;overflow:hidden;}
-.copy-save-widget .type-script{border-right:1px solid #dcdcdc;}
-.copy-save-widget .save-btn{position:absolute;bottom:10px;right:10px;}
-.copy-save-widget .saved-msg{position:absolute;bottom:14px;right:110px;}`;
+.copy-save-widget .input-wrapper{display:flex;align-items:center;gap:12px;}
+.copy-save-widget .code-input{width:300px;padding:10px 12px;border:1px solid #cbd5e1;background:#f8fafc;font-size:13px;border-radius:8px;color:#334155;font-family:'Noto Sans', sans-serif;transition:border-color .2s ease;}
+.copy-save-widget .code-input:focus{outline:none;border-color:#c90f0f;box-shadow:0 0 0 3px rgb(201 15 15 / 0.1);}
+.copy-save-widget .copy-btn,.copy-save-widget .save-btn{padding:10px 16px;border:none;border-radius:8px;background:#c90f0f;color:#ffffff;cursor:pointer;transition:all .2s ease;font-weight:500;font-size:13px;font-family:'Noto Sans', sans-serif;}
+.copy-save-widget .copy-btn:hover,.copy-save-widget .save-btn:hover{background:#b10e0e;transform:translateY(-1px);box-shadow:0 4px 12px rgb(201 15 15 / 0.4);}
+.copy-save-widget .copy-btn.clicked,.copy-save-widget .save-btn.clicked{transform:scale(0.95);box-shadow:0 2px 8px rgb(201 15 15 / 0.3);}
+.copy-save-widget .copied-msg,.copy-save-widget .saved-msg{margin-left:8px;color:#16a34a;font-weight:600;transition:opacity .3s ease;user-select:none;font-size:13px;}
+.copy-save-widget .editor-window{width:90%;height:80%;background:#1e293b;color:#e2e8f0;border-radius:12px;padding:16px;position:relative;display:flex;flex-direction:column;box-shadow:0 10px 25px rgb(0 0 0 / 0.3);}
+.copy-save-widget .titlebar{background:#374151;padding:8px 12px;margin:-16px -16px 12px;font-size:13px;color:#f1f5f9;border-top-left-radius:12px;border-top-right-radius:12px;font-weight:500;}
+.copy-save-widget .code{flex:1;font-size:13px;line-height:1.4;white-space:pre;overflow:hidden;color:#e2e8f0;}
+.copy-save-widget .type-script{border-right:2px solid #c90f0f;color:#c90f0f;font-weight:600;}
+.copy-save-widget .save-btn{position:absolute;bottom:12px;right:12px;}
+.copy-save-widget .saved-msg{position:absolute;bottom:16px;right:120px;}`;
 
     function copySaveWidget(selector, opts = {}) {
         const el = typeof selector === 'string' ? document.querySelector(selector) : selector;
