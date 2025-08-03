@@ -7,7 +7,7 @@
 .fix-close-widget .col:last-child{border-right:none;}
 .fix-close-widget .col:nth-child(even){background:#f1f5f9;}
 .fix-close-widget .col-title{font-size:12px;font-weight:600;color:#334155;margin-top:8px;margin-bottom:10px;}
-.fix-close-widget .ticket{width:78%;padding:8px 10px;background:#ffffff;border:1px solid #cbd5e1;border-left:4px solid #f59e0b;border-radius:8px;font-size:12px;box-shadow:0 2px 4px rgb(0 0 0 / 0.1);position:absolute;top:44px;left:10%;transform:translateX(0);transition:transform .7s ease;color:#334155;}
+.fix-close-widget .ticket{width:26%;padding:8px 10px;background:#ffffff;border:1px solid #cbd5e1;border-left:4px solid #f59e0b;border-radius:8px;font-size:12px;box-shadow:0 2px 4px rgb(0 0 0 / 0.1);position:absolute;top:44px;left:3%;transform:scale(1);color:#334155;}
 .fix-close-widget .ticket.resolved{border-left-color:#16a34a;}
 /* Toast */
 .fix-close-widget .toast{position:absolute;top:12px;right:-260px;width:240px;padding:12px 14px;background:#c90f0f;color:#ffffff;border-radius:10px;box-shadow:0 10px 25px rgb(0 0 0 / 0.15);font-size:13px;display:flex;gap:8px;align-items:center;transition:right .5s ease,opacity .3s ease;opacity:0;z-index:3;font-weight:500;}
@@ -18,8 +18,6 @@
 .fix-close-widget .bubble.user{background:#f1f5f9;color:#334155;align-self:flex-start;border:1px solid #e2e8f0;}
 .fix-close-widget .bubble.dev{background:#c90f0f;color:#ffffff;align-self:flex-end;}
 .fix-close-widget .bubble.fixed{background:#16a34a;color:#ffffff;align-self:center;font-weight:600;}
-.fix-close-widget .cta{margin-top:auto;align-self:center;padding:10px 20px;background:#c90f0f;color:#ffffff;border:none;border-radius:8px;font-size:13px;cursor:pointer;opacity:0;transition:all .3s ease;font-weight:500;font-family:'Noto Sans', sans-serif;}
-.fix-close-widget .cta:hover{background:#b10e0e;transform:translateY(-1px);box-shadow:0 4px 12px rgb(201 15 15 / 0.4);}
 /* Confetti */
 .fix-close-widget .confetti{position:absolute;width:8px;height:8px;border-radius:2px;opacity:0;}
 @keyframes drop{to{transform:translateY(220px) rotate(720deg);opacity:1;}}

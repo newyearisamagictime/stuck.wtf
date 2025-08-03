@@ -56,8 +56,10 @@
         const toast = el.querySelector('.toast');
         const chat = el.querySelector('.chat');
         const fixedBubble = el.querySelector('.bubble.fixed');
-        const cta = el.querySelector('.cta');
+        const thanksBubble = el.querySelector('.bubble.thanks');
         const badge = el.querySelector('.badge');
+
+        const COL_POS = [3, 36, 69];
 
         function launchConfetti() {
             const colors = ['#FFC700', '#FF0000', '#2E3191', '#41BBC7', '#4CAF50'];
@@ -77,15 +79,25 @@
         const S = opts.speedMultiplier ? 1 / opts.speedMultiplier : 1;
 
         function reset() {
-            ticket.style.transform = 'translateX(0)';
+            ticket.style.left = COL_POS[0] + '%';
+            ticket.style.top = '44px';
+            ticket.style.transform = 'scale(1)';
             ticket.classList.remove('resolved');
             toast.classList.remove('show');
             toast.style.right = '-260px';
             toast.style.opacity = 0;
             chat.style.opacity = 0;
             fixedBubble.style.opacity = 0;
-            cta.style.opacity = 0;
+            thanksBubble.style.opacity = 0;
             badge.style.opacity = 0;
+        }
+
+        function arc(from, to) {
+            return ticket.animate([
+                { left: from + '%', top: '44px' },
+                { left: (from + to) / 2 + '%', top: '10px' },
+                { left: to + '%', top: '44px' }
+            ], { duration: 1200 * S, easing: 'ease-in-out', fill: 'forwards' }).finished;
         }
 
         function loop() {
@@ -97,21 +109,21 @@
             ], { duration: 1100 * S });
             setTimeout(() => {
                 ticket.classList.add('resolved');
-                ticket.style.transform = 'translateX(200%)';
+                arc(COL_POS[0], COL_POS[1]).then(() => arc(COL_POS[1], COL_POS[2]));
             }, 1300 * S);
-            setTimeout(() => { toast.classList.add('show'); }, 2400 * S);
+            setTimeout(() => { toast.classList.add('show'); }, 3700 * S);
             setTimeout(() => {
                 toast.classList.remove('show');
                 chat.style.opacity = 1;
-            }, 3300 * S);
+            }, 4600 * S);
+            setTimeout(() => { thanksBubble.style.opacity = 1; }, 6700 * S);
             setTimeout(() => {
                 fixedBubble.style.opacity = 1;
                 launchConfetti();
-            }, 4300 * S);
-            setTimeout(() => { cta.style.opacity = 1; }, 5400 * S);
-            setTimeout(() => { chat.style.opacity = 0; }, 6900 * S);
-            setTimeout(() => { badge.style.opacity = 1; }, 7500 * S);
-            setTimeout(loop, 7600 * S);
+            }, 6700 * S);
+            setTimeout(() => { chat.style.opacity = 0; }, 8200 * S);
+            setTimeout(() => { badge.style.opacity = 1; }, 8800 * S);
+            setTimeout(loop, 8900 * S);
         }
         loop();
     }
