@@ -2,456 +2,361 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Stop Losing Sales to Hidden Bugs | stuck.wtf</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop losing customers to hidden bugs | stuck.wtf</title>
+    <!-- Variable EB Garamond font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Oswald font -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <!-- Tailwind via CDN for quick prototyping. Replace with self‑hosted build for prod -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.45;color:#111;}
-        section {padding:60px 20px;max-width:960px;margin:0 auto;}
-        h1,h2{margin:0 0 .4em}
-        h1{font-size:2.5rem}
-        h2{font-size:1.75rem}
-        p{margin:.6em 0}
-        .btn{display:inline-block;background:#111;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-weight:600}
-        .hero{background:#F5F7FA;text-align:center}
-        .cols{display:flex;flex-wrap:wrap;gap:40px}
-        .cols>div{flex:1 1 280px}
-        .step{font-size:3rem;font-weight:700;color:#04A;line-height:1}
-        .price-card{border:1px solid #ddd;border-radius:8px;padding:32px;text-align:center}
-        .price-card h3{margin-top:0}
-        .price-cards{
-            display:flex;
-            gap:20px;
-            justify-content:center;
-            margin-top:40px;
+        :root{
+            --accent:#c90f0f;
         }
-
-        /* Виджет обратной связи */
-        .feedback-widget {
-            position: fixed;
-            right: -2px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
+        /* subtle hero gradient */
+        .bg-radial{
+            background: radial-gradient(at 50% -20%, rgba(201,15,15,0.12) 0%,transparent 60%);
         }
-
-        .feedback-btn {
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 12px 6px;
-            writing-mode: vertical-lr;
-            text-orientation: mixed;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 8px 0 0 8px;
-            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            font-family: inherit;
+        /* Apply Oswald to all headings */
+        h1,h2, h3, h4, h5, h6 {
+            font-family: 'Kaushan Script', cursive;
         }
-
-        .feedback-btn:hover {
-            background: #ff3742;
-            transform: translateX(-3px);
+        /* Scroll‑reveal */
+        [data-reveal]{
+            opacity:0;
+            transform:translateY(40px);
+            transition:all .6s cubic-bezier(.215,.61,.355,1);
         }
-
-        .feedback-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1001;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .feedback-popup.active {
-            display: flex;
-        }
-
-        .feedback-modal {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            max-width: 480px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .feedback-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #666;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.2s;
-        }
-
-        .feedback-close:hover {
-            background: #f0f0f0;
-        }
-
-        .feedback-header {
-            margin-bottom: 20px;
-            padding-right: 40px;
-        }
-
-        .feedback-header h3 {
-            margin: 0 0 8px 0;
-            color: #333;
-            font-size: 20px;
-        }
-
-        .feedback-header p {
-            margin: 0;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .feedback-form {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .feedback-form label {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 4px;
-            display: block;
-        }
-
-        .feedback-form input,
-        .feedback-form textarea,
-        .feedback-form select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        .feedback-form textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .feedback-form input:focus,
-        .feedback-form textarea:focus,
-        .feedback-form select:focus {
-            outline: none;
-            border-color: #ff4757;
-            box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.1);
-        }
-
-        .feedback-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-
-        .feedback-btn-secondary {
-            background: #f8f9fa;
-            color: #666;
-            border: 1px solid #ddd;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-
-        .feedback-btn-secondary:hover {
-            background: #e9ecef;
-        }
-
-        .feedback-btn-primary {
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .feedback-btn-primary:hover {
-            background: #ff3742;
-        }
-
-        .feedback-btn-primary:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .screenshot-area {
-            border: 1px dashed #ddd;
-            border-radius: 6px;
-            padding: 20px;
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-            margin: 16px 0;
-            background: #f9f9f9;
-        }
-
-        .success-message {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .success-message h3 {
-            color: #28a745;
-            margin-bottom: 12px;
-        }
-
-        .success-message p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .feedback-modal {
-                margin: 20px;
-                width: calc(100% - 40px);
-            }
-
-            .feedback-actions {
-                flex-direction: column;
-            }
-
-            .feedback-btn-secondary,
-            .feedback-btn-primary {
-                width: 100%;
-            }
+        [data-reveal].in-view{
+            opacity:1;
+            transform:none;
         }
     </style>
 </head>
-<body>
-
-<!-- 1. Первый экран / Заголовок -->
-<section class="hero">
-    <h1>Stop losing customers to hidden bugs</h1>
-    <p>Real-time visual reports from shoppers help you fix issues <strong>before</strong> they kill your revenue.</p>
-    <a href="#signup" class="btn">Start free trial →</a>
-</section>
-
-<!-- 2. Боль и ситуация -->
-<section id="pain">
-    <h2>When a single glitch costs €1000+ in revenue a day…</h2>
-    <p>You updated a plugin. Your checkout suddenly drops conversions. No alerts, no clear logs – only abandoned carts and lost sales.</p>
-    <p><strong>stuck.wtf</strong> puts a tiny “Report a problem” button on every page so shoppers can point at the
-        bug the moment it happens.</p>
-</section>
-
-<!-- 3. Главная выгода + вторичные выгоды -->
-<section id="benefits">
-    <h2>Why store owners choose us</h2>
-    <div class="cols">
-        <div>
-            <h3>🚀 Recover revenue faster</h3>
-            <p>See what’s broken, where and for whom — in seconds, not days.</p>
+<body class="min-h-screen font-['Noto_Sans'] text-black bg-white bg-radial antialiased scroll-smooth">
+<!-- Sticky nav -->
+<header class="sticky top-0 z-40 bg-white/70 backdrop-blur border-b border-slate-100">
+    <div class="container mx-auto px-4 max-w-7xl flex items-center justify-between py-3">
+        <a href="#" class="font-semibold tracking-tight text-lg"><img src="./stuck-logo-1.png" alt="" style="max-width: 100px"></a>
+        <nav class="hidden md:flex gap-6 text-sm">
+            <a href="#features" class="hover:text-[var(--accent)]">Why us</a>
+            <a href="#how" class="hover:text-[var(--accent)]">How it works</a>
+            <a href="#pricing" class="hover:text-[var(--accent)]">Pricing</a>
+        </nav>
+        <div class="flex items-center gap-3">
+            <a href="#pricing" class="text-sm hover:text-[var(--accent)]">Login</a>
         </div>
-        <div>
-            <h3>💬 Talk to the buyer</h3>
-            <p>Automatic chat thanks the customer and keeps them updated while you fix the issue.</p>
-        </div>
-        <div>
-            <h3>🔌 Fits your stack</h3>
-            <p>Two-way sync with Jira, Notion, Trello or GitHub. Unlimited users, projects and pageviews.</p>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="py-16 md:py-24">
+    <div class="container mx-auto px-4 max-w-6xl text-center" data-reveal>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            Stop losing customers to <span class="text-[var(--accent)]">hidden bugs</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
+            Real-time visual reports from shoppers help you fix issues <b>before</b> they kill your revenue.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="#pricing" class="bg-[var(--accent)] text-white px-8 py-3 rounded-lg hover:bg-[var(--accent)]/90 transition-colors font-medium">
+                Start Free Trial
+            </a>
         </div>
     </div>
 </section>
 
-<!-- 4. Как работает продукт (CJM в 6 шагов) -->
-<section id="how">
-    <h2>How it works — 2 min setup</h2>
-    <div class="cols">
-        <div><span class="step">1</span> Copy your personal widget snippet after signup.</div>
-        <div><span class="step">2</span> Paste it into the&nbsp;header of your Shopify / Woo store.</div>
-        <div><span class="step">3</span> Shoppers click “Report a problem”, mark the screen and hit Send.</div>
-        <div><span class="step">4</span> Ticket lands in stuck.wtf (and Jira if linked) with all data attached.</div>
-        <div><span class="step">5</span> You fix the bug and close the ticket – the buyer gets an instant “All set!”</div>
-        <div><span class="step">6</span> Revenue flows again instead of leaking away.</div>
+<!-- Pain Point Section -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl text-center" data-reveal>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-black">
+            When a single glitch costs €1000+ in revenue a day…
+        </h2>
+        <p class="text-lg text-slate-600 mb-6 max-w-2xl mx-auto">
+            You updated a plugin. Your checkout suddenly drops conversions. No alerts, no clear logs – only abandoned carts and lost sales.
+        </p>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+            <strong>Stuck<span class="text-[var(--accent)]">.</span></strong> puts a tiny "Report a problem" button on every page so shoppers can point at the bug the moment it happens.
+        </p>
     </div>
 </section>
 
-<!-- 5. Оффер, прайсинг и финальный CTA -->
-<section id="signup">
-    <h2>Priced to pay for itself <em>day one</em></h2>
-    <div class="price-cards">
-        <div class="price-card">
-            <h3>Starter</h3>
-            <p>€19/mo + €20 per confirmed report</p>
-            <p>No limits on users, projects or traffic. Cancel anytime.</p>
-            <a href="#" class="btn">Start free &nbsp;→</a>
+<!-- Features Section -->
+<section id="features" class="py-16 bg-slate-50">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center mb-16" data-reveal>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose Stuck<span class="text-[var(--accent)]">.</span>?</h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                Our advanced monitoring catches bugs in real-time, ensuring your users have the best possible experience.
+            </p>
         </div>
-        <div class="price-card">
-            <h3>Pro</h3>
-            <p>€99/mo</p>
-            <p>Up to 5 projects, unlimited confirmed reports, priority support.</p>
-            <a href="#" class="btn">Start free &nbsp;→</a>
-        </div>
-        <div class="price-card">
-            <h3>Enterprise</h3>
-            <p>Custom pricing</p>
-            <p>Unlimited projects, reports, custom integrations, SLAs.</p>
-            <a href="#" class="btn">Contact us &nbsp;→</a>
-        </div>
-    </div>
 
-</section>
-
-<!-- Виджет обратной связи -->
-<div class="feedback-widget">
-    <button class="feedback-btn" onclick="openFeedback()">Report a problem</button>
-</div>
-
-<!-- Pop-up окно для обратной связи -->
-<div class="feedback-popup" id="feedbackPopup">
-    <div class="feedback-modal">
-        <button class="feedback-close" onclick="closeFeedback()">&times;</button>
-
-        <div id="feedbackForm">
-            <div class="feedback-header">
-                <h3>🐛 Report a problem</h3>
-                <p>Help us fix issues by describing what went wrong. We'll get back to you shortly!</p>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="text-center p-6" data-reveal>
+                <div class="w-12 h-12 bg-[var(--accent)] rounded-lg mx-auto mb-4 flex items-center justify-center">
+                    <span class="text-white text-2xl">🚀</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Recover revenue faster</h3>
+                <p class="text-slate-600">See what's broken, where and for whom — in seconds, not days.</p>
             </div>
 
-            <form class="feedback-form" onsubmit="submitFeedback(event)">
-                <div>
-                    <label for="problemType">What type of issue are you experiencing?</label>
-                    <select id="problemType" required>
-                        <option value="">Select issue type...</option>
-                        <option value="page-not-loading">Page not loading</option>
-                        <option value="button-not-working">Button not working</option>
-                        <option value="checkout-issue">Checkout problem</option>
-                        <option value="display-issue">Display/layout issue</option>
-                        <option value="slow-loading">Slow loading</option>
-                        <option value="other">Other</option>
-                    </select>
+            <div class="text-center p-6" data-reveal>
+                <div class="w-12 h-12 bg-[var(--accent)] rounded-lg mx-auto mb-4 flex items-center justify-center">
+                    <span class="text-white text-2xl">💬</span>
                 </div>
+                <h3 class="text-xl font-bold mb-2">Talk to the buyer</h3>
+                <p class="text-slate-600">Automatic chat thanks the customer and keeps them updated while you fix the issue.</p>
+            </div>
 
-                <div>
-                    <label for="userEmail">Your email (optional)</label>
-                    <input type="email" id="userEmail" placeholder="your@email.com">
+            <div class="text-center p-6" data-reveal>
+                <div class="w-12 h-12 bg-[var(--accent)] rounded-lg mx-auto mb-4 flex items-center justify-center">
+                    <span class="text-white text-2xl">🔌</span>
                 </div>
-
-                <div>
-                    <label for="problemDescription">Describe the problem</label>
-                    <textarea id="problemDescription" required placeholder="Please describe what you were trying to do and what went wrong..."></textarea>
-                </div>
-
-                <div class="screenshot-area">
-                    📸 Screenshot automatically captured<br>
-                    <small>Browser info and page URL included</small>
-                </div>
-
-                <div class="feedback-actions">
-                    <button type="button" class="feedback-btn-secondary" onclick="closeFeedback()">Cancel</button>
-                    <button type="submit" class="feedback-btn-primary">Send Report</button>
-                </div>
-            </form>
-        </div>
-
-        <div id="successMessage" class="success-message" style="display: none;">
-            <h3>✅ Thank you!</h3>
-            <p>We've received your report and will investigate the issue right away.</p>
-            <p>We'll keep you updated via email if you provided one.</p>
-            <button class="feedback-btn-primary" onclick="closeFeedback()">Close</button>
+                <h3 class="text-xl font-bold mb-2">Fits your stack</h3>
+                <p class="text-slate-600">Two-way sync with Jira, Notion, Trello or GitHub. Unlimited users, projects and pageviews.</p>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how" class="py-16">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">How it works — 2 min setup</h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                From setup to solving customer issues in 4 simple steps.
+            </p>
+        </div>
+
+        <div class="space-y-16">
+            <!-- Step 1: Text left, Image right -->
+            <div class="grid md:grid-cols-2 gap-8 items-center" data-reveal>
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-[var(--accent)] text-white rounded-full mr-4 flex items-center justify-center text-2xl font-bold">1</div>
+                        <h3 class="text-2xl font-bold">Copy & Install the Widget</h3>
+                    </div>
+                    <p class="text-lg text-slate-600">Copy your personal snippet after sign-up and paste it into the &lt;head&gt; of any online store. Up and running in under 60 seconds.</p>
+                </div>
+                <div class="bg-slate-100 rounded-lg p-4 flex items-center justify-center" id="block1">
+                </div>
+            </div>
+
+            <!-- Step 2: Image left, Text right -->
+            <div class="grid md:grid-cols-2 gap-8 items-center" data-reveal>
+                <div class="bg-slate-100 rounded-lg p-4 flex items-center justify-center md:order-1" id="block2">
+                </div>
+                <div class="md:order-2">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-[var(--accent)] text-white rounded-full mr-4 flex items-center justify-center text-2xl font-bold">2</div>
+                        <h3 class="text-2xl font-bold">Shoppers Report Issues — right when it matters</h3>
+                    </div>
+                    <p class="text-lg text-slate-600">In your dashboard you decide when the "Report a problem" button appears: checkout errors, 404 pages, custom events, a shopper lingering too long on one page, or making an unusual number of clicks. When the trigger fires, the shopper taps the button, highlights the issue, and sends.</p>
+                </div>
+            </div>
+
+            <!-- Step 3: Text left, Image right -->
+            <div class="grid md:grid-cols-2 gap-8 items-center" data-reveal>
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-[var(--accent)] text-white rounded-full mr-4 flex items-center justify-center text-2xl font-bold">3</div>
+                        <h3 class="text-2xl font-bold">Get Actionable Reports & Keep the Conversation</h3>
+                    </div>
+                    <p class="text-lg text-slate-600">Instant in-app notifications arrive with screenshots, console logs, and session data. Chat back with the shopper while the full bug report is simultaneously pushed to Jira, GitHub, or your dev/agency queue.</p>
+                </div>
+                <div class="bg-slate-100 rounded-lg p-4 flex items-center justify-center" id="block3">
+                </div>
+            </div>
+
+            <!-- Step 4: Image left, Text right -->
+            <div class="grid md:grid-cols-2 gap-8 items-center" data-reveal>
+                <div class="bg-slate-100 rounded-lg p-4 flex items-center justify-center md:order-1" id="block4">
+
+                </div>
+                <div class="md:order-2">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-[var(--accent)] text-white rounded-full mr-4 flex items-center justify-center text-2xl font-bold">4</div>
+                        <h3 class="text-2xl font-bold">Fix & Close</h3>
+                    </div>
+                    <p class="text-lg text-slate-600">Patch the bug, close the ticket — the shopper automatically receives an "All fixed!" message.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section id="pricing" class="py-16 bg-slate-50">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center mb-16" data-reveal>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Priced to pay for itself <em>day one</em></h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                Choose the plan that works best for your business. All plans include our core monitoring features.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div class="bg-white p-8 rounded-2xl border border-slate-200" data-reveal>
+                <h3 class="text-xl font-bold mb-2">Starter</h3>
+                <div class="mb-6">
+                    <span class="text-3xl font-bold">€19</span>
+                    <span class="text-slate-600">/mo + €20 per confirmed report</span>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        No limits on users, projects or traffic
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Real-time monitoring
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Cancel anytime
+                    </li>
+                </ul>
+                <a href="#" class="block w-full text-center bg-slate-100 text-black py-3 rounded-lg hover:bg-slate-200 transition-colors">Start free trial</a>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl border-2 border-[var(--accent)] relative" data-reveal>
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[var(--accent)] text-white px-3 py-1 rounded-full text-sm">Popular</div>
+                <h3 class="text-xl font-bold mb-2">Pro</h3>
+                <div class="mb-6">
+                    <span class="text-3xl font-bold">€99</span>
+                    <span class="text-slate-600">/month</span>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Up to 5 projects
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Unlimited confirmed reports
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Priority support
+                    </li>
+                </ul>
+                <a href="#" class="block w-full text-center bg-[var(--accent)] text-white py-3 rounded-lg hover:bg-[var(--accent)]/90 transition-colors">Start free trial</a>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl border border-slate-200" data-reveal>
+                <h3 class="text-xl font-bold mb-2">Enterprise</h3>
+                <div class="mb-6">
+                    <span class="text-3xl font-bold">Custom pricing</span>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Unlimited projects and reports
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Custom integrations
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        SLAs
+                    </li>
+                </ul>
+                <a href="#" class="block w-full text-center bg-slate-100 text-black py-3 rounded-lg hover:bg-slate-200 transition-colors">Contact us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-12 bg-black text-white">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center mb-8">
+            <img src="./stuck-logo-1.png" alt="stuck.wtf" class="mx-auto mb-4" style="max-width: 100px; filter: brightness(0) invert(1);">
+            <p class="text-slate-400 text-sm max-w-2xl mx-auto">Stop losing customers to hidden bugs with our real-time monitoring solution.</p>
+        </div>
+
+        <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-slate-400 text-sm">© 2025 stuck.wtf. All rights reserved.</p>
+            <div class="flex items-center gap-6 mt-4 md:mt-0">
+                <a href="#features" class="text-slate-400 hover:text-white text-sm">Features</a>
+                <a href="#how" class="text-slate-400 hover:text-white text-sm">How it works</a>
+                <a href="#pricing" class="text-slate-400 hover:text-white text-sm">Pricing</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Подключение виджета Report a Problem -->
+<script src="./report-widget.js"></script>
+
+<!-- Подключение анимационных виджетов -->
+<script src="./copy-save-widget.js"></script>
+<script src="./trigger-report-widget.js"></script>
+<script src="./action-report-widget.js"></script>
+<script src="./fix-close-widget.js"></script>
 
 <script>
-function openFeedback() {
-    document.getElementById('feedbackPopup').classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
+    // Инициализация виджета с настройками
+    document.addEventListener('DOMContentLoaded', function() {
+        new ReportWidget({
+            accentColor: '#c90f0f',
+            buttonText: 'Report a problem',
+            position: 'right',
+            // apiEndpoint: 'https://your-api.com/reports' // Раскомментируйте и укажите ваш API endpoint
+        });
 
-function closeFeedback() {
-    document.getElementById('feedbackPopup').classList.remove('active');
-    document.body.style.overflow = 'auto';
-
-    // Сброс формы при закрытии
-    setTimeout(() => {
-        document.getElementById('feedbackForm').style.display = 'block';
-        document.getElementById('successMessage').style.display = 'none';
-        document.querySelector('.feedback-form').reset();
-    }, 300);
-}
-
-function submitFeedback(event) {
-    event.preventDefault();
-
-    const formData = {
-        type: document.getElementById('problemType').value,
-        email: document.getElementById('userEmail').value,
-        description: document.getElementById('problemDescription').value,
-        url: window.location.href,
-        userAgent: navigator.userAgent,
-        timestamp: new Date().toISOString(),
-        viewport: {
-            width: window.innerWidth,
-            height: window.innerHeight
-        }
-    };
-
-    // Имитация отправки данных
-    console.log('Feedback submitted:', formData);
-
-    // Показываем сообщение об успехе
-    document.getElementById('feedbackForm').style.display = 'none';
-    document.getElementById('successMessage').style.display = 'block';
-
-    // В реальном приложении здесь был бы API запрос:
-    // fetch('/api/feedback', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(formData)
-    // });
-}
-
-// Закрытие попапа при клике вне модального окна
-document.getElementById('feedbackPopup').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeFeedback();
-    }
-});
-
-// Закрытие попапа при нажатии Escape
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeFeedback();
-    }
-});
+        // Инициализация анимационных виджетов
+        copySaveWidget('#block1', { width: 500, height: 200 });
+        triggerReportWidget('#block2');
+        actionReportWidget('#block3', { width: 540, height: 220 });
+        fixCloseWidget('#block4', { width: 540, height: 220 });
+    });
 </script>
 
+<!-- Scroll reveal animation -->
+<script>
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('[data-reveal]');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach((el) => {
+        revealObserver.observe(el);
+    });
+</script>
 </body>
 </html>
