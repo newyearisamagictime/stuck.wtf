@@ -20,7 +20,7 @@
 .fix-close-widget *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',Consolas,monospace;}
 .fix-close-widget{width:500px;height:200px;border:1px solid #d9d9d9;position:relative;overflow:hidden;background:#fff;border-radius:8px;}
 /* Kanban board */
-.fix-close-widget .board{display:flex;height:100%;background:#fafafa;border-radius:6px;overflow:hidden;}
+.fix-close-widget .board{display:flex;width:100%;height:100%;background:#fafafa;border-radius:6px;overflow:hidden;}
 .fix-close-widget .col{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;border-right:1px dashed #ddd;}
 .fix-close-widget .col:last-child{border-right:none;}
 .fix-close-widget .col:nth-child(even){background:#f3f3f3;}
