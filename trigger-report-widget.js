@@ -209,24 +209,28 @@
 .trigger-report-widget .total{height:12px;background:#cbd5e1;width:60%;border-radius:6px;}
 .trigger-report-widget .field{height:14px;background:#cbd5e1;border-radius:6px;position:relative;}
 .trigger-report-widget .field.error{background:#fecaca;border:1px solid #ef4444;}
-.trigger-report-widget .error-msg{position:absolute;left:0;bottom:-18px;font-size:12px;color:#ef4444;font-weight:500;}
-/* ----- Report badge ----- */
-.trigger-report-widget .badge{position:absolute;top:40%;right:-80px;padding:10px 16px;border:none;border-radius:8px 0 0 8px;background:#c90f0f;color:#ffffff;font-size:12px;cursor:pointer;transition:all .4s ease;font-weight:500;font-family:'Noto Sans', sans-serif;}
+.trigger-report-widget .error-msg{position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);font-size:14px;color:#ef4444;font-weight:600;background:#ffffff;padding:8px 16px;border-radius:8px;box-shadow:0 2px 8px rgba(239, 68, 68, 0.2);z-index:5;}
+/* ----- Report badge (вертикальная кнопка) ----- */
+.trigger-report-widget .badge{position:absolute;top:50%;right:-80px;transform:translateY(-50%);padding:12px 6px;border:none;border-radius:8px 0 0 8px;background:#c90f0f;color:#ffffff;font-size:14px;cursor:pointer;transition:all .4s ease;font-weight:600;font-family:'Noto Sans', sans-serif;writing-mode:vertical-lr;text-orientation:mixed;box-shadow:-2px 0 10px rgba(0,0,0,0.1);}
 .trigger-report-widget .badge.show{right:0;}
-.trigger-report-widget .badge.clicked{transform:scale(0.95);box-shadow:0 2px 8px rgb(201 15 15 / 0.3);}
+.trigger-report-widget .badge.clicked{transform:translateY(-50%) scale(0.95);box-shadow:0 2px 8px rgb(201 15 15 / 0.3);}
+.trigger-report-widget .badge:hover{background:#b10e0e;transform:translateY(-50%) translateX(-3px);}
 /* ----- Overlay & toolbar ----- */
-.trigger-report-widget .overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transition:opacity .4s ease;}
+.trigger-report-widget .overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transition:opacity .4s ease;z-index:10;}
 .trigger-report-widget .highlight{width:70%;height:44%;border:2px dashed #f59e0b;background:rgba(245,158,11,.15);border-radius:8px;}
 .trigger-report-widget .tool-bar{display:flex;gap:10px;margin-top:12px;opacity:0;transition:opacity .3s ease;}
-.trigger-report-widget .tool-icon{width:20px;height:20px;border-radius:6px;background:#ffffff;display:flex;justify-content:center;align-items:center;font-size:13px;color:#c90f0f;box-shadow:0 2px 4px rgb(0 0 0 / 0.1);}
-.trigger-report-widget .send-btn{margin-top:16px;padding:10px 20px;border:none;border-radius:8px;background:#c90f0f;color:#ffffff;font-size:13px;cursor:pointer;transition:all .2s ease;opacity:0;font-weight:500;font-family:'Noto Sans', sans-serif;}
+.trigger-report-widget .tool-icon{width:28px;height:28px;border-radius:6px;background:#ffffff;display:flex;justify-content:center;align-items:center;font-size:14px;color:#c90f0f;box-shadow:0 2px 4px rgb(0 0 0 / 0.1);cursor:pointer;transition:all 0.2s ease;}
+.trigger-report-widget .tool-icon:hover{transform:translateY(-1px);box-shadow:0 4px 8px rgb(0 0 0 / 0.15);}
+.trigger-report-widget .send-btn{margin-top:16px;padding:10px 20px;border:none;border-radius:8px;background:#c90f0f;color:#ffffff;font-size:13px;cursor:pointer;transition:all .3s ease;opacity:0;font-weight:500;font-family:'Noto Sans', sans-serif;display:flex;align-items:center;gap:6px;}
 .trigger-report-widget .send-btn:hover{background:#b10e0e;transform:translateY(-1px);box-shadow:0 4px 12px rgb(201 15 15 / 0.4);}
-.trigger-report-widget .send-btn.clicked{transform:scale(0.95);box-shadow:0 2px 8px rgb(201 15 15 / 0.3);}
-.trigger-report-widget .sent-msg{margin-top:12px;background:#16a34a;color:#ffffff;font-weight:600;font-size:13px;padding:6px 12px;border-radius:8px;opacity:0;transition:opacity .3s ease;box-shadow:0 2px 4px rgb(0 0 0 / 0.1);}`;
+.trigger-report-widget .send-btn.clicked{background:#16a34a;transform:scale(0.95);box-shadow:0 2px 8px rgb(22 163 74 / 0.3);}
+.trigger-report-widget .send-btn.success{background:#16a34a;}
+.trigger-report-widget .sent-msg{display:none;}`;
 
         function triggerReportWidget(selector, opts={}){
             const el = typeof selector==='string'?document.querySelector(selector):selector;
             if(!el) return console.error('triggerReportWidget: container not found',selector);
+
             injectStyles(STYLE_ID,CSS);
             el.innerHTML='';
             el.classList.add('trigger-report-widget');
@@ -261,9 +265,12 @@
             <div class="overlay">
               <div class="highlight"></div>
               <div class="tool-bar">
-                <div class="tool-icon">✏️</div><div class="tool-icon">◻️</div><div class="tool-icon">🖍️</div>
+                <div class="tool-icon"><i class="fas fa-pencil-alt"></i></div>
+                <div class="tool-icon"><i class="far fa-square"></i></div>
+                <div class="tool-icon"><i class="fas fa-highlighter"></i></div>
+                <div class="tool-icon"><i class="fas fa-arrow-right"></i></div>
               </div>
-              <button class="send-btn">Send</button>
+              <button class="send-btn"><span class="btn-text">Send</span><i class="fas fa-check" style="display:none;"></i></button>
               <div class="sent-msg">✓ Sent</div>
             </div>
           </div>
@@ -281,6 +288,8 @@
             const highlight   = el.querySelector('.highlight');
             const toolBar     = el.querySelector('.tool-bar');
             const sendBtn     = el.querySelector('.send-btn');
+            const btnText     = sendBtn.querySelector('.btn-text');
+            const btnIcon     = sendBtn.querySelector('.fas.fa-check');
             const sentMsg     = el.querySelector('.sent-msg');
 
             const speed = opts.speedMultiplier?1/opts.speedMultiplier:1;
@@ -293,7 +302,20 @@
 
             function reset(){
                 dashboard.style.opacity=1;store.style.opacity=0;
-                timeWrap.style.opacity=0;badge.classList.remove('show','clicked');badge.style.right='-80px';overlay.style.opacity=0;toolBar.style.opacity=0;sendBtn.style.opacity=0;sentMsg.style.opacity=0;highlight.style.opacity=0;chk.checked=false;timeInput.value='';
+                timeWrap.style.opacity=0;
+                badge.classList.remove('show','clicked');
+                // Убираем инлайн стиль для right, чтобы CSS класс мог работать
+                badge.style.removeProperty('right');
+                overlay.style.opacity=0;
+                toolBar.style.opacity=0;
+                sendBtn.style.opacity=0;
+                sendBtn.classList.remove('clicked','success');
+                btnText.style.display='inline';
+                btnIcon.style.display='none';
+                sentMsg.style.opacity=0;
+                highlight.style.opacity=0;
+                chk.checked=false;
+                timeInput.value='';
             }
 
             function loop(){
@@ -306,20 +328,25 @@
                 setTimeout(()=>{timeWrap.style.opacity=1;typeText(timeInput,'1 min');},1800*speed);
                 // Fade to store scene
                 setTimeout(()=>{dashboard.style.opacity=0;store.style.opacity=1;},3500*speed);
-                // Slide badge in
+                // Slide badge in - используем класс вместо инлайн стиля
                 setTimeout(()=>{badge.classList.add('show');},4300*speed);
                 // Click badge + overlay + toolbar
                 setTimeout(()=>{badge.classList.add('clicked');overlay.style.opacity=1;highlight.style.opacity=1;toolBar.style.opacity=1;},5200*speed);
                 // Show send button
                 setTimeout(()=>{sendBtn.style.opacity=1;},5900*speed);
-                // Click send
-                setTimeout(()=>{sendBtn.classList.add('clicked');sentMsg.style.opacity=1;highlight.style.opacity=0.35;},6700*speed);
+                // Click send - изменяем кнопку на зеленую с галочкой
+                setTimeout(()=>{
+                    sendBtn.classList.add('clicked','success');
+                    btnText.style.display='none';
+                    btnIcon.style.display='inline';
+                    highlight.style.opacity=0.35;
+                },6700*speed);
                 // Fade overlay out
-                setTimeout(()=>{overlay.style.opacity=0;toolBar.style.opacity=0;},8000*speed);
+                setTimeout(()=>{overlay.style.opacity=0;toolBar.style.opacity=0;},8500*speed);
                 // Fade widget out
-                setTimeout(()=>{store.style.opacity=0;},8600*speed);
+                setTimeout(()=>{store.style.opacity=0;},9100*speed);
                 // Restart
-                setTimeout(loop,10000*speed);
+                setTimeout(loop,10500*speed);
             }
             loop();
         }
