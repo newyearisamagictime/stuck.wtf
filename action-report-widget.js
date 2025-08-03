@@ -23,6 +23,15 @@
         }
     }
 
+    function ensureFontAwesome(){
+        if(!document.querySelector('link[href*="font-awesome"], link[href*="fontawesome"], link[href*="font-awesome"]')){
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+            document.head.appendChild(link);
+        }
+    }
+
     /* ==========================================================================
      * PREVIOUS WIDGETS (v2.1) preserved — not repeated here for brevity
      * They are assumed already attached on the page.
@@ -53,6 +62,7 @@
                     htmlCache = html;
                 }
 
+                ensureFontAwesome();
                 injectStyles(STYLE_ID, cssCache);
                 el.innerHTML='';
                 el.classList.add('action-report-widget');
@@ -67,10 +77,13 @@
                 const scrTab       = el.querySelector('.tab-scr');
                 const conTab       = el.querySelector('.tab-con');
                 const chatTab      = el.querySelector('.tab-chat');
+                const intTab       = el.querySelector('.tab-int');
                 const consoleBox   = el.querySelector('.console');
                 const chat         = el.querySelector('.chat');
+                const integration  = el.querySelector('.integration');
                 const bubbles      = Array.from(el.querySelectorAll('.bubble'));
-                const content      = el.querySelector('.content');
+                const timeEl       = el.querySelector('.jira-time');
+                if(timeEl) timeEl.textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
 
                 /* Speed multiplier */
                 const S = opts.speedMultiplier?1/opts.speedMultiplier:1;
@@ -80,11 +93,12 @@
                     scrTab.classList.add('active');
                     conTab.classList.remove('active');
                     chatTab.classList.remove('active');
-                    screenshot.style.display='flex';
+                    if(intTab) intTab.classList.remove('active');
+                    screenshot.classList.add('active');
                     consoleBox.classList.remove('active');
-                    chat.classList.remove('show');
+                    chat.classList.remove('active');
+                    integration.classList.remove('active');
                     bubbles.forEach(b=>b.classList.remove('show'));
-                    if(content) content.scrollTop = 0;
                 }
 
                 /* Loop sequence */
@@ -94,7 +108,7 @@
                     setTimeout(()=>{
                         scrTab.classList.remove('active');
                         conTab.classList.add('active');
-                        screenshot.style.display='none';
+                        screenshot.classList.remove('active');
                         consoleBox.classList.add('active');
                     },2000*S);
                     /* 2) switch to chat tab */
@@ -102,12 +116,19 @@
                         conTab.classList.remove('active');
                         chatTab.classList.add('active');
                         consoleBox.classList.remove('active');
-                        chat.classList.add('show');
+                        chat.classList.add('active');
                         bubbles[0].classList.add('show');
-                        if(content) content.scrollTop = content.scrollHeight;
-                        setTimeout(()=>{bubbles[1].classList.add('show');if(content) content.scrollTop = content.scrollHeight;},800*S);
+                        chat.scrollTop = chat.scrollHeight;
+                        setTimeout(()=>{bubbles[1].classList.add('show');chat.scrollTop = chat.scrollHeight;},800*S);
                     },4000*S);
-                    /* 3) restart */
+                    /* 3) show integration */
+                    setTimeout(()=>{
+                        chatTab.classList.remove('active');
+                        if(intTab) intTab.classList.add('active');
+                        chat.classList.remove('active');
+                        integration.classList.add('active');
+                    },6000*S);
+                    /* 4) restart */
                     setTimeout(loop,8000*S);
                 }
                 loop();

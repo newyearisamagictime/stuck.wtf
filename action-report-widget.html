@@ -1,26 +1,30 @@
 <div class="panel">
-  <div class="screenshot">
-    <div class="page-mock">
-      <div class="product"><div class="thumb"></div><div class="product-info"></div></div>
-      <div class="product"><div class="thumb"></div><div class="product-info"></div></div>
-      <div class="total"></div>
-      <div class="field"></div>
-      <div class="field error"></div>
-      <div class="error-msg">Internal server error</div>
-      <div class="field"></div>
-    </div>
+  <div class="tabs">
+    <span class="tab tab-scr active">Screenshot</span>
+    <span class="tab tab-con">Error details</span>
+    <span class="tab tab-chat">Chat</span>
+    <span class="tab tab-int">Integration</span>
   </div>
   <div class="content">
-    <div class="tabs">
-      <span class="tab tab-scr active">Screenshot</span>
-      <span class="tab tab-con">Error details</span>
-      <span class="tab tab-chat">Chat</span>
-      <span class="tab tab-chat">Integration</span>
+    <div class="pane screenshot active">
+      <div class="page-mock">
+        <div class="product"><div class="thumb"></div><div class="product-info"></div></div>
+        <div class="product"><div class="thumb"></div><div class="product-info"></div></div>
+        <div class="total"></div>
+        <div class="field"></div>
+        <div class="field error"></div>
+        <div class="error-msg">Internal server error</div>
+        <div class="field"></div>
+      </div>
     </div>
-    <pre class="console"><span class="error">GET /checkout 500 (Internal Server Error)</span></pre>
-    <div class="chat">
+    <pre class="pane console"><span class="error">GET /checkout 500 (Internal Server Error)</span></pre>
+    <div class="pane chat">
       <div class="bubble user">Hi, I’m stuck on payment 😕</div>
       <div class="bubble dev">Thanks! I’m on it.</div>
+    </div>
+    <div class="pane integration">
+      <i class="fa-brands fa-jira"></i>
+      <span>Ticket sent to Jira at <span class="jira-time"></span></span>
     </div>
   </div>
 </div>
