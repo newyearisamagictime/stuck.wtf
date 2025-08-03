@@ -55,7 +55,7 @@
         const ticket = el.querySelector('.ticket');
         const toast = el.querySelector('.toast');
         const chat = el.querySelector('.chat');
-        const fixedBubble = el.querySelector('.bubble.fixed');
+        const followBubble = el.querySelector('.bubble.dev.followup');
         const thanksBubble = el.querySelector('.bubble.thanks');
         const badge = el.querySelector('.badge');
 
@@ -79,15 +79,17 @@
         const S = opts.speedMultiplier ? 1 / opts.speedMultiplier : 1;
 
         function reset() {
+            ticket.getAnimations().forEach(a => a.cancel());
             ticket.style.left = COL_POS[0] + '%';
             ticket.style.top = '44px';
             ticket.style.transform = 'scale(1)';
-            ticket.classList.remove('resolved');
+            ticket.classList.remove('progress', 'done');
+            ticket.classList.add('backlog');
             toast.classList.remove('show');
             toast.style.right = '-260px';
             toast.style.opacity = 0;
             chat.style.opacity = 0;
-            fixedBubble.style.opacity = 0;
+            followBubble.style.opacity = 0;
             thanksBubble.style.opacity = 0;
             badge.style.opacity = 0;
         }
@@ -108,22 +110,27 @@
                 { transform: 'scale(1)' }
             ], { duration: 1100 * S });
             setTimeout(() => {
-                ticket.classList.add('resolved');
-                arc(COL_POS[0], COL_POS[1]).then(() => arc(COL_POS[1], COL_POS[2]));
+                ticket.classList.remove('backlog');
+                ticket.classList.add('progress');
+                arc(COL_POS[0], COL_POS[1]).then(() => {
+                    ticket.classList.remove('progress');
+                    ticket.classList.add('done');
+                    return arc(COL_POS[1], COL_POS[2]);
+                });
             }, 1300 * S);
             setTimeout(() => { toast.classList.add('show'); }, 3700 * S);
             setTimeout(() => {
                 toast.classList.remove('show');
                 chat.style.opacity = 1;
             }, 4600 * S);
-            setTimeout(() => { thanksBubble.style.opacity = 1; }, 6700 * S);
+            setTimeout(() => { followBubble.style.opacity = 1; }, 5700 * S);
             setTimeout(() => {
-                fixedBubble.style.opacity = 1;
+                thanksBubble.style.opacity = 1;
                 launchConfetti();
             }, 6700 * S);
             setTimeout(() => { chat.style.opacity = 0; }, 8200 * S);
             setTimeout(() => { badge.style.opacity = 1; }, 8800 * S);
-            setTimeout(loop, 8900 * S);
+            setTimeout(() => { reset(); loop(); }, 8900 * S);
         }
         loop();
     }
