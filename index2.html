@@ -144,8 +144,7 @@
                     </div>
                     <p class="text-lg text-slate-600">Copy your personal snippet after sign-up and paste it into the &lt;head&gt; of any online store. Up and running in under 60 seconds.</p>
                 </div>
-                <div class="bg-slate-100 rounded-lg p-4 flex items-center justify-center">
-                    <img src="./1.png" alt="Copy & Install the Widget" class="max-w-full h-auto">
+                <div class="bg-slate-100 rounded-lg p-4 flex items-center justify-center" id="block1">
                 </div>
             </div>
 
@@ -347,6 +346,238 @@
     revealElements.forEach((el) => {
         revealObserver.observe(el);
     });
+</script>
+<script>
+    (function (global) {
+        "use strict";
+
+        /* --------------------------------------------------
+         * 1.  Style injection (once‑per‑page)
+         * -------------------------------------------------- */
+        const STYLE_ID = "copy-save-widget-style";
+        function injectStyles () {
+            if (document.getElementById(STYLE_ID)) return; // already there
+
+            const css = `/* ====== Base reset (scoped) ====== */
+.copy-save-widget *{box-sizing:border-box;margin:0;padding:0;font-family:Consolas,monospace;}
+
+/* ====== Widget frame ====== */
+.copy-save-widget{
+  width:500px; /* default, can be overridden inline */
+  height:200px; /* default */
+  border:1px solid #ccc;
+  position:relative;
+  overflow:hidden;
+  background:#fff;
+}
+
+/* ====== Scene containers ====== */
+.copy-save-widget .scene{
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transition:opacity .4s ease;
+}
+.copy-save-widget .scene-editor,
+.copy-save-widget .copied-msg,
+.copy-save-widget .saved-msg{opacity:0;}
+
+/* ====== Copy‑input ====== */
+.copy-save-widget .input-wrapper{display:flex;align-items:center;gap:8px;}
+.copy-save-widget .code-input{
+  width:300px;
+  padding:4px 6px;
+  border:1px solid #999;
+  background:#f6f6f6;
+  font-size:12px;
+}
+.copy-save-widget .copy-btn,
+.copy-save-widget .save-btn{
+  padding:4px 12px;
+  border:none;
+  border-radius:4px;
+  background:#0069ed;
+  color:#fff;
+  cursor:pointer;
+  transition:transform .1s ease;
+}
+.copy-save-widget .copy-btn.clicked,
+.copy-save-widget .save-btn.clicked{transform:scale(0.9);}
+.copy-save-widget .copied-msg,
+.copy-save-widget .saved-msg{
+  margin-left:8px;
+  color:#28a745;
+  font-weight:bold;
+  transition:opacity .3s ease;
+  user-select:none;
+}
+
+/* ====== Editor mockup ====== */
+.copy-save-widget .editor-window{
+  width:90%;
+  height:80%;
+  background:#1e1e1e;
+  color:#dcdcdc;
+  border-radius:6px;
+  padding:10px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+}
+.copy-save-widget .titlebar{
+  background:#333;
+  padding:4px 8px;
+  margin:-10px -10px 8px;
+  font-size:12px;
+  color:#fff;
+  border-top-left-radius:6px;
+  border-top-right-radius:6px;
+}
+.copy-save-widget .code{
+  flex:1;
+  font-size:12px;
+  line-height:1.2;
+  white-space:pre;
+  overflow:hidden;
+}
+.copy-save-widget .type-script{border-right:1px solid #dcdcdc;}
+.copy-save-widget .save-btn{position:absolute;bottom:8px;right:8px;}
+.copy-save-widget .saved-msg{position:absolute;bottom:12px;right:85px;}`;
+
+            const styleEl = document.createElement("style");
+            styleEl.id = STYLE_ID;
+            styleEl.textContent = css;
+            document.head.appendChild(styleEl);
+        }
+
+        /* --------------------------------------------------
+         * 2.  Widget factory
+         * -------------------------------------------------- */
+        function copySaveWidget (selector, opts = {}) {
+            const container = typeof selector === "string" ? document.querySelector(selector) : selector;
+            if (!container) {
+                console.error("copySaveWidget: container not found:", selector);
+                return;
+            }
+
+            injectStyles();
+
+            // Ensure clean slate
+            container.innerHTML = "";
+
+            // Apply base class and sizing overrides
+            container.classList.add("copy-save-widget");
+            if (opts.width)  container.style.width  = opts.width  + "px";
+            if (opts.height) container.style.height = opts.height + "px";
+
+            // --------------------------------------------------
+            // Build DOM structure inside the container
+            // --------------------------------------------------
+            container.insertAdjacentHTML(
+                "afterbegin",
+                `<!-- ===== Scene 1: Copy input ===== -->
+       <div class="scene scene-copy">
+         <div class="input-wrapper">
+           <input class="code-input" type="text" readonly value="&lt;script src=&quot;widget.js&quot;&gt;&lt;/script&gt;">
+           <button class="copy-btn">Copy</button>
+           <div class="copied-msg">✓ Copied</div>
+         </div>
+       </div>
+
+       <!-- ===== Scene 2: Editor mockup ===== -->
+       <div class="scene scene-editor">
+         <div class="editor-window">
+           <div class="titlebar">theme.html</div>
+           <pre class="code">&lt;head&gt;
+  <span class="type-script"></span>
+&lt;/head&gt;
+&lt;body&gt;
+  ...
+&lt;/body&gt;</pre>
+           <button class="save-btn">Save</button>
+           <div class="saved-msg">✓ Saved</div>
+         </div>
+       </div>`
+            );
+
+            // Elements scoped to this widget instance
+            const sceneCopy   = container.querySelector(".scene-copy");
+            const sceneEditor = container.querySelector(".scene-editor");
+            const copyBtn     = container.querySelector(".copy-btn");
+            const copiedMsg   = container.querySelector(".copied-msg");
+            const saveBtn     = container.querySelector(".save-btn");
+            const savedMsg    = container.querySelector(".saved-msg");
+            const typeSpan    = container.querySelector(".type-script");
+
+    // Tag string (split closing tag so parser never sees \<\/script>)
+const scriptTag = '\<script src="widget.js">\<\/' + 'script>';
+
+/* ----------------------------------------------
+ * Animation helpers (scoped per instance)
+ * ---------------------------------------------- */
+function reset () {
+    sceneCopy.style.opacity   = 1;
+    sceneEditor.style.opacity = 0;
+    copyBtn .classList.remove("clicked");
+    saveBtn .classList.remove("clicked");
+    copiedMsg.style.opacity = 0;
+    savedMsg .style.opacity = 0;
+    typeSpan.textContent    = "";
+}
+
+function loop () {
+    reset();
+
+    // 1️⃣  Copy click visual
+    setTimeout(() => {
+        copyBtn.classList.add("clicked");
+        copiedMsg.style.opacity = 1;
+    }, 1000);
+
+    // 2️⃣  Transition to editor
+    setTimeout(() => {
+        sceneCopy .style.opacity = 0;
+        sceneEditor.style.opacity = 1;
+    }, 2000);
+
+    // 3️⃣  Fake typing of the script tag
+    setTimeout(() => {
+        let i = 0;
+        const int = setInterval(() => {
+            typeSpan.textContent = scriptTag.slice(0, i++);
+            if (i > scriptTag.length) clearInterval(int);
+        }, 30);
+    }, 2300);
+
+    // 4️⃣  Save click visual
+    setTimeout(() => {
+        saveBtn.classList.add("clicked");
+        savedMsg.style.opacity = 1;
+    }, 4000);
+
+    // 5️⃣  Fade editor out
+    setTimeout(() => {
+        sceneEditor.style.opacity = 0;
+    }, 5200);
+
+    // 6️⃣  Restart loop
+    setTimeout(loop, 6000);
+}
+
+// Kick it off
+loop();
+}
+
+/* --------------------------------------------------
+ * 3.  Expose to global
+ * -------------------------------------------------- */
+global.copySaveWidget = copySaveWidget;
+
+})(window);
+
+    copySaveWidget('#block1',   { width: 500, height: 200 });
 </script>
 
 </body>
