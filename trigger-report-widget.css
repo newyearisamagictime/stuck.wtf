@@ -70,6 +70,7 @@
   font-size: 13px;
   color: #334155;
   padding: 6px 0;
+  line-height: 2em;
 }
 
 .trigger-report-widget .trigger-item input {
@@ -231,6 +232,7 @@
   border: 2px dashed #f59e0b;
   background: rgba(245, 158, 11, 0.15);
   border-radius: 8px;
+  margin-top: 50px;
 }
 
 .trigger-report-widget .tool-icon {

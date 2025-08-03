@@ -1,13 +1,3 @@
-/* =====================================================================
-    * Stuck.wtf Widget Library v2.1  (enhanced timing & UX)
-    * ---------------------------------------------------------------------
-    *  ✓ copySaveWidget()      — animates "Copy & Save"
-    *  ✓ reportIssueWidget()   — shopper clicks "Report a problem" in‑store
-    *  ✓ triggerReportWidget() — dashboard trigger setup + shopper flow
-    * ---------------------------------------------------------------------
-    *  One JS include → self‑injecting scoped CSS; call widgetFn(selector,…)
-    * ===================================================================== */
-
 (function (global) {
     "use strict";
 
@@ -20,96 +10,6 @@
             document.head.appendChild(s);
         }
     }
-
-    /* ==========================================================================
-     * 1) COPY‑SAVE WIDGET  (unchanged)
-     * ======================================================================= */
-    (function(){
-        const STYLE_ID = 'copy-save-style';
-        if (global.copySaveWidget) return; // already defined (keep previous impl)
-
-
-        function copySaveWidget(selector, opts={}) {
-            const el = typeof selector==='string'?document.querySelector(selector):selector;
-            if(!el) return console.error('copySaveWidget: container not found',selector);
-            el.innerHTML='';
-            el.classList.add('trigger-report-widget');
-            if(opts.width) el.style.width=opts.width+'px';
-            if(opts.height) el.style.height=opts.height+'px';
-
-            const sceneCopy   = el.querySelector('.scene-copy');
-            const sceneEditor = el.querySelector('.scene-editor');
-            const copyBtn     = el.querySelector('.copy-btn');
-            const copiedMsg   = el.querySelector('.copied-msg');
-            const saveBtn     = el.querySelector('.save-btn');
-            const savedMsg    = el.querySelector('.saved-msg');
-            const typeSpan    = el.querySelector('.type-script');
-            const tag         = '<script src="widget.js"></'+'script>';
-
-            const T = opts.speedMultiplier ? 1/opts.speedMultiplier : 1; // slow‑down multiplier
-
-            function reset(){
-                sceneCopy.style.opacity=1;sceneEditor.style.opacity=0;
-                copyBtn.classList.remove('clicked');saveBtn.classList.remove('clicked');
-                copiedMsg.style.opacity=0;savedMsg.style.opacity=0;typeSpan.textContent='';
-            }
-            function loop(){
-                reset();
-                setTimeout(()=>{copyBtn.classList.add('clicked');copiedMsg.style.opacity=1;},1000*T);
-                setTimeout(()=>{sceneCopy.style.opacity=0;sceneEditor.style.opacity=1;},2200*T);
-                setTimeout(()=>{let i=0;const t=setInterval(()=>{typeSpan.textContent=tag.slice(0,i++);if(i>tag.length)clearInterval(t);},50*T);},2500*T);
-                setTimeout(()=>{saveBtn.classList.add('clicked');savedMsg.style.opacity=1;},5200*T);
-                setTimeout(()=>{sceneEditor.style.opacity=0;},6700*T);
-                setTimeout(loop,8200*T);
-            }
-            loop();
-        }
-        global.copySaveWidget = copySaveWidget;
-    })();
-
-    /* ==========================================================================
-     * 2) REPORT‑ISSUE WIDGET  (unchanged visual, slightly slower)
-     * ======================================================================= */
-    (function(){
-        const STYLE_ID='report-issue-style';
-        if (global.reportIssueWidget) return; // already defined
-
-
-        function reportIssueWidget(selector,opts={}){
-            const el=typeof selector==='string'?document.querySelector(selector):selector;
-            if(!el) return console.error('reportIssueWidget: container not found',selector);
-            el.innerHTML='';
-            el.classList.add('report-issue-widget');
-            if(opts.width) el.style.width=opts.width+'px';
-            if(opts.height) el.style.height=opts.height+'px';
-
-
-            const scenePage=el.querySelector('.scene-page');
-            const sceneOverlay=el.querySelector('.scene-overlay');
-            const reportBtn=el.querySelector('.report-btn');
-            const sendBtn=el.querySelector('.send-btn');
-            const sentMsg=el.querySelector('.sent-msg');
-            const highlight=el.querySelector('.highlight');
-
-            function reset(){
-                scenePage.style.opacity=1;sceneOverlay.style.opacity=0;
-                reportBtn.style.opacity=0;sendBtn.style.opacity=0;sentMsg.style.opacity=0;highlight.style.opacity=0;
-                reportBtn.classList.remove('clicked');sendBtn.classList.remove('clicked');
-            }
-            function loop(){
-                reset();
-                setTimeout(()=>{reportBtn.style.opacity=1;},1000);
-                setTimeout(()=>{reportBtn.classList.add('clicked');sceneOverlay.style.opacity=1;highlight.style.opacity=1;},2000);
-                setTimeout(()=>{sendBtn.style.opacity=1;},2700);
-                setTimeout(()=>{sendBtn.classList.add('clicked');sentMsg.style.opacity=1;highlight.style.opacity=0.3;},3500);
-                setTimeout(()=>{sceneOverlay.style.opacity=0;},4700);
-                setTimeout(()=>{scenePage.style.opacity=0;},5300);
-                setTimeout(loop,6700);
-            }
-            loop();
-        }
-        global.reportIssueWidget = reportIssueWidget;
-    })();
 
     /* ==========================================================================
      * 3) TRIGGER‑REPORT WIDGET  (improved as per feedback)
@@ -226,13 +126,3 @@
     })();
 
 })(window);
-
-/* =====================================================================
- * Quick demo (remove in production)
- *
- * <div id="demo"></div>
- * <script src="widgetLib.js"><\/script>
-* <script>
-*   triggerReportWidget('#demo');
-* <\/script>
-* ===================================================================== */
