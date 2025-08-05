@@ -18,7 +18,7 @@
 .copy-save-widget .scene{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease;}
 .copy-save-widget .scene-editor{opacity:0;}
 .copy-save-widget .input-wrapper{display:flex;align-items:center;gap:12px;}
-.copy-save-widget .code-input{width:300px;padding:10px 12px;border:1px solid #cbd5e1;background:#f8fafc;font-size:13px;border-radius:8px;color:#334155;font-family:'Noto Sans', sans-serif;transition:border-color .2s ease;}
+.copy-save-widget .code-input{max-width:300px;padding:10px 12px;border:1px solid #cbd5e1;background:#f8fafc;font-size:13px;border-radius:8px;color:#334155;font-family:'Noto Sans', sans-serif;transition:border-color .2s ease;}
 .copy-save-widget .code-input:focus{outline:none;border-color:#c90f0f;box-shadow:0 0 0 3px rgb(201 15 15 / 0.1);}
 .copy-save-widget .copy-btn,.copy-save-widget .save-btn{padding:10px 16px;border:none;border-radius:8px;background:#c90f0f;color:#ffffff;cursor:pointer;transition:all .2s ease;font-weight:500;font-size:13px;font-family:'Noto Sans', sans-serif;}
 .copy-save-widget .copy-btn:hover,.copy-save-widget .save-btn:hover{background:#b10e0e;transform:translateY(-1px);box-shadow:0 4px 12px rgb(201 15 15 / 0.4);}
