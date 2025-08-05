@@ -41,5 +41,91 @@
     </style>
 </head>
 <body class="min-h-screen font-['Noto_Sans'] text-black bg-white bg-radial antialiased scroll-smooth">
+<div id="app" class="flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow">
+        <!-- Step 1: Email & Password -->
+        <div v-if="step === 1">
+            <h2 class="text-2xl font-bold mb-6 text-center">Create your account</h2>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1" for="email">Email</label>
+                <input id="email" type="email" v-model="form.email" class="w-full border rounded px-3 py-2" placeholder="you@example.com">
+            </div>
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-1" for="password">Password</label>
+                <input id="password" type="password" v-model="form.password" class="w-full border rounded px-3 py-2" placeholder="••••••••">
+            </div>
+            <button @click="nextStep" :disabled="!form.email || !form.password" class="w-full bg-[var(--accent)] text-white py-2 rounded disabled:opacity-50">Next</button>
+        </div>
+
+        <!-- Step 2: Company & Integration -->
+        <div v-else-if="step === 2">
+            <h2 class="text-2xl font-bold mb-6 text-center">Tell us about your company</h2>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1" for="company">Company name</label>
+                <input id="company" type="text" v-model="form.company" class="w-full border rounded px-3 py-2" placeholder="Acme Inc.">
+            </div>
+            <div class="mb-4">
+                <span class="block text-sm font-medium mb-1">Choose integration</span>
+                <div class="flex justify-between">
+                    <button @click="form.integration = 'jira'" :class="['flex-1 py-2 mx-1 border rounded', form.integration === 'jira' ? 'bg-[var(--accent)] text-white' : '']">
+                        <i class="fa-brands fa-jira text-xl"></i>
+                    </button>
+                    <button @click="form.integration = 'github'" :class="['flex-1 py-2 mx-1 border rounded', form.integration === 'github' ? 'bg-[var(--accent)] text-white' : '']">
+                        <i class="fa-brands fa-github text-xl"></i>
+                    </button>
+                    <button @click="form.integration = 'trello'" :class="['flex-1 py-2 mx-1 border rounded', form.integration === 'trello' ? 'bg-[var(--accent)] text-white' : '']">
+                        <i class="fa-brands fa-trello text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-1" for="referrer">How did you hear about us?</label>
+                <select id="referrer" v-model="form.referrer" class="w-full border rounded px-3 py-2">
+                    <option disabled value="">Select an option</option>
+                    <option>Search engine</option>
+                    <option>Friend or colleague</option>
+                    <option>Social media</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <button @click="nextStep" :disabled="!form.company || !form.integration || !form.referrer" class="w-full bg-[var(--accent)] text-white py-2 rounded disabled:opacity-50">Finish</button>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div v-else>
+            <h2 class="text-2xl font-bold mb-4 text-center">You're all set!</h2>
+            <p class="text-center mb-6">Everything is ready, you can start working.</p>
+            <a href="./index.html" class="block w-full text-center bg-[var(--accent)] text-white py-2 rounded">Go to dashboard</a>
+        </div>
+    </div>
+</div>
+
+<!-- Vue.js -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script>
+    const { createApp } = Vue;
+
+    createApp({
+        data() {
+            return {
+                step: 1,
+                form: {
+                    email: '',
+                    password: '',
+                    company: '',
+                    integration: '',
+                    referrer: ''
+                }
+            };
+        },
+        methods: {
+            nextStep() {
+                if (this.step < 3) {
+                    this.step++;
+                }
+            }
+        }
+    }).mount('#app');
+</script>
 </body>
 </html>
