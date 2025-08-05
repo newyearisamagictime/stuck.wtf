@@ -14,7 +14,7 @@
     font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Pro', 'Font Awesome 5 Free',
     'Font Awesome 5 Pro', FontAwesome !important;
 }
-.action-report-widget{width:500px;height:200px;border:1px solid #e2e8f0;position:relative;overflow:hidden;background:#ffffff;border-radius:12px;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);}
+.action-report-widget{width:100%;max-width:500px;height:200px;border:1px solid #e2e8f0;position:relative;overflow:hidden;background:#ffffff;border-radius:12px;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);}
 /* ----- Panel ----- */
 .action-report-widget .panel{position:absolute;top:0;right:0;width:100%;height:100%;background:#ffffff;box-shadow:-4px 0 15px rgb(0 0 0 / 0.15);border-left:4px solid #c90f0f;display:flex;padding:16px;gap:16px;overflow:hidden;}
 /* Tabs column */

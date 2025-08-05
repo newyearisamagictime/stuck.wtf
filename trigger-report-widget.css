@@ -24,7 +24,8 @@
   --primary: #c90f0f;
   --primary-hover: #b10e0e;
   --success: #16a34a;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 200px;
   border: 1px solid #e2e8f0;
   position: relative;

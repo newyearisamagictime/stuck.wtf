@@ -1,6 +1,6 @@
 /* ===== Fix & Close ===== */
 .fix-close-widget *{box-sizing:border-box;margin:0;padding:0;font-family:'Noto Sans', sans-serif;}
-.fix-close-widget{width:500px;height:200px;border:1px solid #e2e8f0;position:relative;overflow:hidden;background:#ffffff;border-radius:12px;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);}
+.fix-close-widget{width:100%;max-width:500px;height:200px;border:1px solid #e2e8f0;position:relative;overflow:hidden;background:#ffffff;border-radius:12px;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);}
 /* Kanban board */
 .fix-close-widget .board{display:flex;width:100%;height:100%;background:#f8fafc;border-radius:12px;overflow:hidden;}
 .fix-close-widget .col{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;border-right:1px dashed #cbd5e1;}
