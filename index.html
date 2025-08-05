@@ -18,11 +18,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root{
-            --accent:#c90f0f;
+            --accent:#dcb55d;
+            --red:#c90f0f;
+            --gold:#dcb55d;
         }
         /* subtle hero gradient */
         .bg-radial{
-            background: radial-gradient(at 50% -20%, rgba(201,15,15,0.12) 0%,transparent 60%);
+            background: radial-gradient(at 50% -20%, rgba(201, 142, 15, 0.12) 0%,transparent 60%);
         }
         /* Apply Oswald to all headings */
         h1,h2, h3, h4, h5, h6 {
@@ -51,7 +53,7 @@
             <a href="#pricing" class="hover:text-[var(--accent)]">Pricing</a>
         </nav>
         <div class="flex items-center gap-3">
-            <a href="#pricing" class="text-sm hover:text-[var(--accent)]">Login</a>
+            <a href="./registration.html" class="bg-gray-200 text-sm text-black px-8 py-3 rounded-lg hover:bg-[var(--accent)]/90 transition-colors">Login</a>
         </div>
     </div>
 </header>
@@ -59,14 +61,14 @@
 <!-- Hero Section -->
 <section class="py-16 md:py-24">
     <div class="container mx-auto px-4 max-w-6xl text-center" data-reveal>
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Stop losing customers to <span class="text-[var(--accent)]">hidden bugs</span>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-12 leading-tight">
+            Stop losing customers to <span class="text-[var(--red)]">hidden bugs</span>
         </h1>
         <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-            Real-time visual reports from shoppers help you fix issues <b>before</b> they kill your revenue.
+            Online store owners get real-time visual reports to fix bugs <b>before</b> they kill your revenue.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="#pricing" class="bg-[var(--accent)] text-white px-8 py-3 rounded-lg hover:bg-[var(--accent)]/90 transition-colors font-medium">
+            <a href="./registration.html" class="bg-[var(--accent)] text-white px-8 py-3 rounded-lg hover:bg-[var(--accent)]/90 transition-colors font-medium">
                 Start Free Trial
             </a>
         </div>
@@ -83,7 +85,7 @@
             You updated a plugin. Your checkout suddenly drops conversions. No alerts, no clear logs – only abandoned carts and lost sales.
         </p>
         <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-            <strong>Stuck<span class="text-[var(--accent)]">.</span></strong> puts a tiny "Report a problem" button on every page so shoppers can point at the bug the moment it happens.
+            <strong>Stuck<span class="text-[var(--red)]">.</span></strong> puts a tiny "Report a problem" button on every page so shoppers can point at the bug the moment it happens.
         </p>
     </div>
 </section>
@@ -92,7 +94,7 @@
 <section id="features" class="py-16 bg-slate-50">
     <div class="container mx-auto px-4 max-w-6xl">
         <div class="text-center mb-16" data-reveal>
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose Stuck<span class="text-[var(--accent)]">.</span>?</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose Stuck<span class="text-[var(--red)]">.</span>?</h2>
             <p class="text-lg text-slate-600 max-w-2xl mx-auto">
                 Our advanced monitoring catches bugs in real-time, ensuring your users have the best possible experience.
             </p>
@@ -101,7 +103,7 @@
         <div class="grid md:grid-cols-3 gap-8">
             <div class="text-center p-6" data-reveal>
                 <div class="w-12 h-12 bg-[var(--accent)] rounded-lg mx-auto mb-4 flex items-center justify-center">
-                    <span class="text-white text-2xl">🚀</span>
+                    <span class="text-white text-2xl"><i class="fa-solid fa-rocket"></i></span>
                 </div>
                 <h3 class="text-xl font-bold mb-2">Recover revenue faster</h3>
                 <p class="text-slate-600">See what's broken, where and for whom — in seconds, not days.</p>
@@ -109,18 +111,20 @@
 
             <div class="text-center p-6" data-reveal>
                 <div class="w-12 h-12 bg-[var(--accent)] rounded-lg mx-auto mb-4 flex items-center justify-center">
-                    <span class="text-white text-2xl">💬</span>
+                    <span class="text-white text-2xl"><i class="fa-solid fa-comments"></i></span>
                 </div>
                 <h3 class="text-xl font-bold mb-2">Talk to the buyer</h3>
-                <p class="text-slate-600">Automatic chat thanks the customer and keeps them updated while you fix the issue.</p>
+                <p class="text-slate-600">
+                    Chat with shoppers while they report issues, keeping them engaged and informed.
+                </p>
             </div>
 
             <div class="text-center p-6" data-reveal>
                 <div class="w-12 h-12 bg-[var(--accent)] rounded-lg mx-auto mb-4 flex items-center justify-center">
-                    <span class="text-white text-2xl">🔌</span>
+                    <span class="text-white text-2xl"><i class="fa-brands fa-jira"></i></span>
                 </div>
                 <h3 class="text-xl font-bold mb-2">Fits your stack</h3>
-                <p class="text-slate-600">Two-way sync with Jira, Notion, Trello or GitHub. Unlimited users, projects and pageviews.</p>
+                <p class="text-slate-600">Two-way sync with Jira, Notion, Trello or GitHub to keep your devs in the loop.</p>
             </div>
         </div>
     </div>
@@ -199,7 +203,7 @@
         <div class="text-center mb-16" data-reveal>
             <h2 class="text-3xl md:text-4xl font-bold mb-4">Priced to pay for itself <em>day one</em></h2>
             <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-                Choose the plan that works best for your business. All plans include our core monitoring features.
+                Choose the plan that works best for your business.
             </p>
         </div>
 

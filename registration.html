@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop losing customers to hidden bugs | stuck.wtf</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Variable EB Garamond font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Oswald font -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <!-- Tailwind via CDN for quick prototyping. Replace with self‑hosted build for prod -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root{
+            --accent:#c90f0f;
+        }
+        /* subtle hero gradient */
+        .bg-radial{
+            background: radial-gradient(at 50% -20%, rgba(201,15,15,0.12) 0%,transparent 60%);
+        }
+        /* Apply Oswald to all headings */
+        h1,h2, h3, h4, h5, h6 {
+            font-family: 'Kaushan Script', cursive;
+        }
+        /* Scroll‑reveal */
+        [data-reveal]{
+            opacity:0;
+            transform:translateY(40px);
+            transition:all .6s cubic-bezier(.215,.61,.355,1);
+        }
+        [data-reveal].in-view{
+            opacity:1;
+            transform:none;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-['Noto_Sans'] text-black bg-white bg-radial antialiased scroll-smooth">
+</body>
+</html>
