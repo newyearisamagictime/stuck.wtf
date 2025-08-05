@@ -1,6 +1,6 @@
 /**
  * Report Problem Widget
- * Виджет для отправки отчетов о проблемах с возможностью создания скриншотов и аннотаций
+ * Widget for sending problem reports with screenshot and annotation support
  */
 
 class ReportWidget {
@@ -12,7 +12,7 @@ class ReportWidget {
             ...options
         };
 
-        // Переменные для аннотаций
+        // Annotation variables
         this.isDrawing = false;
         this.currentTool = 'arrow';
         this.currentColor = '#ff0000';
@@ -25,7 +25,7 @@ class ReportWidget {
         this.init();
     }
 
-    // Инициализация виджета
+    // Initialize widget
     init() {
         this.loadExternalLibraries();
         this.injectStyles();
@@ -33,9 +33,9 @@ class ReportWidget {
         this.bindEvents();
     }
 
-    // Загрузка внешних библиотек
+    // Load external libraries
     loadExternalLibraries() {
-        // HTML2Canvas для создания скриншотов
+        // HTML2Canvas for creating screenshots
         if (!window.html2canvas) {
             const script = document.createElement('script');
             script.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
@@ -43,11 +43,11 @@ class ReportWidget {
         }
     }
 
-    // Внедрение стилей
+    // Inject styles
     injectStyles() {
         const style = document.createElement('style');
         style.textContent = `
-            /* Виджет обратной связи */
+            /* Feedback widget */
             .report-widget {
                 position: fixed;
                 right: -2px;
@@ -92,14 +92,14 @@ class ReportWidget {
                 transform: translateX(3px);
             }
 
-            /* Стили для скриншота */
+            /* Screenshot styles */
             .report-screenshot-overlay {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0, 0, 0, 0.8);
+                background: transparent;
                 z-index: 9999;
                 display: none;
                 cursor: crosshair;
@@ -435,16 +435,16 @@ class ReportWidget {
         document.head.appendChild(style);
     }
 
-    // Создание HTML структуры виджета
+    // Create widget HTML structure
     createWidgetHTML() {
-        // Основной виджет
+        // Main widget
         const widget = document.createElement('div');
         widget.className = `report-widget ${this.options.position === 'left' ? 'left' : ''}`;
         widget.innerHTML = `
             <button class="report-widget-btn">${this.options.buttonText}</button>
         `;
 
-        // Оверлей для скриншота
+        // Screenshot overlay
         const overlay = document.createElement('div');
         overlay.className = 'report-screenshot-overlay';
         overlay.id = 'reportScreenshotOverlay';
@@ -452,22 +452,22 @@ class ReportWidget {
             <canvas class="report-annotation-canvas" id="reportAnnotationCanvas"></canvas>
             <div class="report-screenshot-toolbar">
                 <div class="report-toolbar-section">
-                    <button class="report-tool-btn active" data-tool="arrow" title="Стрелка">
+                    <button class="report-tool-btn active" data-tool="arrow" title="Arrow">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M7 17L17 7M17 7H7M17 7V17"/>
                         </svg>
                     </button>
-                    <button class="report-tool-btn" data-tool="rectangle" title="Прямоугольник">
+                    <button class="report-tool-btn" data-tool="rectangle" title="Rectangle">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
                         </svg>
                     </button>
-                    <button class="report-tool-btn" data-tool="circle" title="Круг">
+                    <button class="report-tool-btn" data-tool="circle" title="Circle">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"/>
                         </svg>
                     </button>
-                    <button class="report-tool-btn" data-tool="pen" title="Рисование">
+                    <button class="report-tool-btn" data-tool="pen" title="Pen">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
                         </svg>
@@ -485,13 +485,13 @@ class ReportWidget {
                 </div>
 
                 <div class="report-toolbar-section">
-                    <button class="report-action-btn" title="Очистить">
+                    <button class="report-action-btn" title="Clear">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="3,6 5,6 21,6"/>
                             <path d="M19,6V20a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6M8,6V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
                         </svg>
                     </button>
-                    <button class="report-action-btn" title="Отменить">
+                    <button class="report-action-btn" title="Undo">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M3 7v6h6"/>
                             <path d="M21 17a9 9 0 00-9-9 9 9 0 00-6 2.3L3 13"/>
@@ -500,13 +500,13 @@ class ReportWidget {
                 </div>
 
                 <div class="report-toolbar-section">
-                    <button class="report-action-btn report-cancel-btn">Отмена</button>
-                    <button class="report-action-btn report-save-btn">Готово</button>
+                    <button class="report-action-btn report-cancel-btn">Cancel</button>
+                    <button class="report-action-btn report-save-btn">Done</button>
                 </div>
             </div>
         `;
 
-        // Попап для отправки отчета
+        // Popup for submitting report
         const popup = document.createElement('div');
         popup.className = 'report-popup';
         popup.id = 'reportPopup';
@@ -517,7 +517,7 @@ class ReportWidget {
                 <div id="reportForm">
                     <div class="report-header">
                         <h3>🐛 Report a problem</h3>
-                        <p>Добавьте описание к вашему скриншоту</p>
+                        <p>Add a description to your screenshot</p>
                     </div>
 
                     <form class="report-form">
@@ -526,73 +526,54 @@ class ReportWidget {
                         </div>
 
                         <div>
-                            <label for="reportProblemType">Тип проблемы</label>
-                            <select id="reportProblemType" required>
-                                <option value="">Выберите тип проблемы...</option>
-                                <option value="page-not-loading">Страница не загружается</option>
-                                <option value="button-not-working">Кнопка не работает</option>
-                                <option value="checkout-issue">Проблема с оформлением заказа</option>
-                                <option value="display-issue">Проблема с отображением</option>
-                                <option value="slow-loading">Медленная загрузка</option>
-                                <option value="other">Другое</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label for="reportUserEmail">Ваш email (опционально)</label>
-                            <input type="email" id="reportUserEmail" placeholder="your@email.com">
-                        </div>
-
-                        <div>
-                            <label for="reportProblemDescription">Описание проблемы</label>
-                            <textarea id="reportProblemDescription" required placeholder="Опишите, что вы пытались сделать и что пошло не так..."></textarea>
+                            <label for="reportProblemDescription">Problem description</label>
+                            <textarea id="reportProblemDescription" required placeholder="Describe what went wrong..."></textarea>
                         </div>
 
                         <div class="report-actions">
-                            <button type="button" class="report-btn-secondary">Отмена</button>
-                            <button type="submit" class="report-btn-primary">Отправить отчет</button>
+                            <button type="button" class="report-btn-secondary">Cancel</button>
+                            <button type="submit" class="report-btn-primary">Send report</button>
                         </div>
                     </form>
                 </div>
 
                 <div id="reportSuccessMessage" class="report-success-message" style="display: none;">
-                    <h3>✅ Спасибо!</h3>
-                    <p>Мы получили ваш отчет и сразу займемся расследованием проблемы.</p>
-                    <p>Мы будем держать вас в курсе по email, если вы его указали.</p>
-                    <button class="report-btn-primary">Закрыть</button>
+                    <h3>✅ Thank you!</h3>
+                    <p>We received your report and will investigate the issue.</p>
+                    <button class="report-btn-primary">Close</button>
                 </div>
             </div>
         `;
 
-        // Добавляем элементы в DOM
+        // Add elements to the DOM
         document.body.appendChild(widget);
         document.body.appendChild(overlay);
         document.body.appendChild(popup);
 
-        // Сохраняем ссылки на элементы
+        // Save references to elements
         this.widget = widget;
         this.overlay = overlay;
         this.popup = popup;
     }
 
-    // Привязка событий
+    // Bind events
     bindEvents() {
-        // Кнопка запуска виджета
+        // Widget launch button
         this.widget.querySelector('.report-widget-btn').addEventListener('click', () => this.startScreenshot());
 
-        // События для инструментов
+        // Tool events
         this.overlay.querySelectorAll('.report-tool-btn').forEach(btn => {
             btn.addEventListener('click', (e) => this.selectTool(e.target.closest('.report-tool-btn')));
         });
 
-        // События для цветов
+        // Color events
         this.overlay.querySelectorAll('.report-color-btn').forEach(btn => {
             btn.addEventListener('click', (e) => this.selectColor(e.target));
         });
 
-        // Кнопки действий в toolbar
-        const clearBtn = this.overlay.querySelector('.report-action-btn[title="Очистить"]');
-        const undoBtn = this.overlay.querySelector('.report-action-btn[title="Отменить"]');
+        // Toolbar action buttons
+        const clearBtn = this.overlay.querySelector('.report-action-btn[title="Clear"]');
+        const undoBtn = this.overlay.querySelector('.report-action-btn[title="Undo"]');
         const cancelBtn = this.overlay.querySelector('.report-cancel-btn');
         const saveBtn = this.overlay.querySelector('.report-save-btn');
 
@@ -601,7 +582,7 @@ class ReportWidget {
         cancelBtn.addEventListener('click', () => this.cancelScreenshot());
         saveBtn.addEventListener('click', () => this.finishScreenshot());
 
-        // События для попапа
+        // Popup events
         const closeBtn = this.popup.querySelector('.report-close');
         const cancelFormBtn = this.popup.querySelector('.report-btn-secondary');
         const form = this.popup.querySelector('.report-form');
@@ -612,11 +593,11 @@ class ReportWidget {
         form.addEventListener('submit', (e) => this.submitFeedback(e));
         successCloseBtn.addEventListener('click', () => this.closeFeedback());
 
-        // События для canvas
+        // Canvas events
         this.setupCanvasEvents();
     }
 
-    // Настройка событий для canvas
+    // Setup canvas events
     setupCanvasEvents() {
         const canvas = this.overlay.querySelector('#reportAnnotationCanvas');
 
@@ -625,7 +606,7 @@ class ReportWidget {
         canvas.addEventListener('mouseup', () => this.stopDrawing());
         canvas.addEventListener('mouseout', () => this.stopDrawing());
 
-        // Touch события для мобильных устройств
+        // Touch events for mobile devices
         canvas.addEventListener('touchstart', (e) => {
             e.preventDefault();
             const touch = e.touches[0];
@@ -653,7 +634,7 @@ class ReportWidget {
         });
     }
 
-    // Загрузка html2canvas если нужно
+    // Load html2canvas if needed
     async loadHtml2Canvas() {
         if (window.html2canvas) return Promise.resolve();
 
@@ -665,7 +646,7 @@ class ReportWidget {
         });
     }
 
-    // Начало создания скриншота
+    // Start creating screenshot
     async startScreenshot() {
         try {
             await this.loadHtml2Canvas();
@@ -678,69 +659,86 @@ class ReportWidget {
             this.canvas = canvas;
             this.ctx = canvas.getContext('2d');
 
-            // Очищаем предыдущие аннотации
+            // Clear previous annotations
             this.annotations = [];
             this.clearCanvas();
 
         } catch (error) {
             console.error('Error starting screenshot:', error);
-            alert('Ошибка при запуске инструмента скриншота');
+            alert('Error starting screenshot tool');
         }
     }
 
-    // Выбор инструмента
+    // Select tool
     selectTool(button) {
         this.overlay.querySelectorAll('.report-tool-btn').forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
         this.currentTool = button.dataset.tool;
     }
 
-    // Выбор цвета
+    // Select color
     selectColor(button) {
         this.overlay.querySelectorAll('.report-color-btn').forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
         this.currentColor = button.dataset.color;
     }
 
-    // Очистка аннотаций
+    // Clear annotations
     clearAnnotations() {
         this.annotations = [];
         this.clearCanvas();
     }
 
-    // Отмена последней аннотации
+    // Undo last annotation
     undoAnnotation() {
         this.annotations.pop();
         this.redrawAnnotations();
     }
 
-    // Отмена скриншота
+    // Cancel screenshot
     cancelScreenshot() {
         this.overlay.classList.remove('active');
     }
 
-    // Завершение скриншота
+    // Finish screenshot
     async finishScreenshot() {
         try {
-            // Временно скрываем оверлей для скриншота
+            // Temporarily hide screenshot overlay
             this.overlay.style.display = 'none';
 
-            const screenshot = await html2canvas(document.body, {
+            const fullScreenshot = await html2canvas(document.body, {
                 useCORS: true,
                 allowTaint: true,
                 scale: 1
             });
 
-            // Создаем итоговый canvas с аннотациями
+            // Crop to viewport
+            const screenshot = document.createElement('canvas');
+            screenshot.width = window.innerWidth;
+            screenshot.height = window.innerHeight;
+            const sctx = screenshot.getContext('2d');
+            sctx.drawImage(
+                fullScreenshot,
+                window.scrollX,
+                window.scrollY,
+                window.innerWidth,
+                window.innerHeight,
+                0,
+                0,
+                window.innerWidth,
+                window.innerHeight
+            );
+
+            // Create final canvas with annotations
             const finalCanvas = document.createElement('canvas');
             finalCanvas.width = screenshot.width;
             finalCanvas.height = screenshot.height;
             const finalCtx = finalCanvas.getContext('2d');
 
-            // Рисуем скриншот
+            // Draw screenshot
             finalCtx.drawImage(screenshot, 0, 0);
 
-            // Рисуем аннотации поверх
+            // Draw annotations on top
             const scaleX = screenshot.width / window.innerWidth;
             const scaleY = screenshot.height / window.innerHeight;
 
@@ -748,22 +746,22 @@ class ReportWidget {
                 this.drawAnnotationOnContext(finalCtx, annotation, scaleX, scaleY);
             });
 
-            // Конвертируем в base64
+            // Convert to base64
             const dataURL = finalCanvas.toDataURL('image/png');
 
-            // Показываем попап с формой
+            // Show popup with form
             this.popup.querySelector('#reportScreenshotPreview').src = dataURL;
             this.popup.classList.add('active');
             this.overlay.classList.remove('active');
 
         } catch (error) {
             console.error('Error creating screenshot:', error);
-            alert('Ошибка при создании скриншота');
+            alert('Error creating screenshot');
             this.overlay.style.display = 'block';
         }
     }
 
-    // Начало рисования
+    // Start drawing
     startDrawing(e) {
         this.isDrawing = true;
         const rect = this.canvas.getBoundingClientRect();
@@ -779,7 +777,7 @@ class ReportWidget {
         }
     }
 
-    // Рисование
+    // Drawing
     draw(e) {
         if (!this.isDrawing) return;
 
@@ -792,13 +790,13 @@ class ReportWidget {
             currentAnnotation.points.push({x: currentX, y: currentY});
             this.redrawAnnotations();
         } else {
-            // Для других инструментов показываем предварительный просмотр
+            // For other tools show preview
             this.redrawAnnotations();
             this.drawPreview(currentX, currentY);
         }
     }
 
-    // Остановка рисования
+    // Stop drawing
     stopDrawing() {
         if (!this.isDrawing) return;
         this.isDrawing = false;
@@ -821,7 +819,7 @@ class ReportWidget {
         }
     }
 
-    // Предварительный просмотр
+    // Preview
     drawPreview(currentX, currentY) {
         this.ctx.strokeStyle = this.currentColor;
         this.ctx.lineWidth = 3;
@@ -845,7 +843,7 @@ class ReportWidget {
         this.ctx.stroke();
     }
 
-    // Перерисовка всех аннотаций
+    // Redraw all annotations
     redrawAnnotations() {
         this.clearCanvas();
         this.annotations.forEach(annotation => {
@@ -853,7 +851,7 @@ class ReportWidget {
         });
     }
 
-    // Рисование аннотации на контексте
+    // Draw annotation on context
     drawAnnotationOnContext(ctx, annotation, scaleX = 1, scaleY = 1) {
         ctx.strokeStyle = annotation.color;
         ctx.lineWidth = 3 * Math.max(scaleX, scaleY);
@@ -896,33 +894,31 @@ class ReportWidget {
         ctx.stroke();
     }
 
-    // Рисование стрелки
+    // Draw arrow
     drawArrow(ctx, fromX, fromY, toX, toY) {
         const headLength = 15;
         const angle = Math.atan2(toY - fromY, toX - fromX);
 
-        // Линия стрелки
+        // Arrow line
         ctx.moveTo(fromX, fromY);
         ctx.lineTo(toX, toY);
 
-        // Наконечник стрелки
+        // Arrow head
         ctx.lineTo(toX - headLength * Math.cos(angle - Math.PI / 6), toY - headLength * Math.sin(angle - Math.PI / 6));
         ctx.moveTo(toX, toY);
         ctx.lineTo(toX - headLength * Math.cos(angle + Math.PI / 6), toY - headLength * Math.sin(angle + Math.PI / 6));
     }
 
-    // Очистка canvas
+    // Clear canvas
     clearCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
-    // Отправка отчета
+    // Submit report
     async submitFeedback(event) {
         event.preventDefault();
 
         const formData = {
-            problemType: this.popup.querySelector('#reportProblemType').value,
-            userEmail: this.popup.querySelector('#reportUserEmail').value,
             description: this.popup.querySelector('#reportProblemDescription').value,
             screenshot: this.popup.querySelector('#reportScreenshotPreview').src,
             url: window.location.href,
@@ -931,32 +927,32 @@ class ReportWidget {
         };
 
         try {
-            // Отключаем кнопку отправки
+            // Disable submit button
             const submitBtn = this.popup.querySelector('.report-btn-primary[type="submit"]');
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Отправка...';
+            submitBtn.textContent = 'Submitting...';
 
-            // Здесь должна быть отправка на ваш сервер
+            // Send to your server
             await this.sendReportToServer(formData);
 
-            // Показываем сообщение об успехе
+            // Show success message
             this.popup.querySelector('#reportForm').style.display = 'none';
             this.popup.querySelector('#reportSuccessMessage').style.display = 'block';
 
         } catch (error) {
             console.error('Error submitting feedback:', error);
-            alert('Ошибка при отправке отчета. Попробуйте еще раз.');
+            alert('Error submitting report. Please try again.');
 
-            // Возвращаем кнопку в исходное состояние
+            // Restore submit button
             const submitBtn = this.popup.querySelector('.report-btn-primary[type="submit"]');
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Отправить отчет';
+            submitBtn.textContent = 'Send report';
         }
     }
 
-    // Отправка отчета на сервер (нужно реализовать)
+    // Send report to server (should be implemented)
     async sendReportToServer(data) {
-        // Пример отправки на сервер
+        // Example request to server
         if (this.options.apiEndpoint) {
             const response = await fetch(this.options.apiEndpoint, {
                 method: 'POST',
@@ -972,27 +968,27 @@ class ReportWidget {
 
             return response.json();
         } else {
-            // Имитация отправки
+            // Simulated send
             console.log('Report data:', data);
             return new Promise(resolve => setTimeout(resolve, 1000));
         }
     }
 
-    // Закрытие попапа
+    // Close popup
     closeFeedback() {
         this.popup.classList.remove('active');
 
-        // Сброс формы
+        // Reset form
         this.popup.querySelector('#reportForm').style.display = 'block';
         this.popup.querySelector('#reportSuccessMessage').style.display = 'none';
         this.popup.querySelector('.report-form').reset();
 
         const submitBtn = this.popup.querySelector('.report-btn-primary[type="submit"]');
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Отправить отчет';
+        submitBtn.textContent = 'Send report';
     }
 
-    // Уничтожение виджета
+    // Destroy widget
     destroy() {
         if (this.widget) this.widget.remove();
         if (this.overlay) this.overlay.remove();
@@ -1000,16 +996,16 @@ class ReportWidget {
     }
 }
 
-// Глобальная функция для инициализации виджета
+// Global function to initialize widget
 window.ReportWidget = ReportWidget;
 
-// Автоматическая инициализация если есть атрибут data-report-widget
+// Automatic initialization if element has data-report-widget attribute
 document.addEventListener('DOMContentLoaded', () => {
     const autoInit = document.querySelector('[data-report-widget]');
     if (autoInit) {
         const options = {};
 
-        // Читаем опции из data атрибутов
+        // Read options from data attributes
         if (autoInit.dataset.accentColor) options.accentColor = autoInit.dataset.accentColor;
         if (autoInit.dataset.buttonText) options.buttonText = autoInit.dataset.buttonText;
         if (autoInit.dataset.position) options.position = autoInit.dataset.position;
