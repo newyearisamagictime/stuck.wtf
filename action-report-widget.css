@@ -1,5 +1,5 @@
 /* ===== Action Report ===== */
-.action-report-widget *{box-sizing:border-box;margin:0;padding:0;font-family:'Noto Sans', sans-serif;}
+.action-report-widget *{box-sizing:border-box;margin:0;padding:0;font-family:'Mozilla Text', sans-serif;}
 .action-report-widget :is(
   .fa,
   .fas,

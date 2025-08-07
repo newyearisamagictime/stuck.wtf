@@ -54,7 +54,7 @@ class ReportWidget {
                 top: 50%;
                 transform: translateY(-50%);
                 z-index: 1000;
-                font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                font-family: 'Mozilla Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             }
 
             .report-widget.left {
