@@ -9,24 +9,20 @@
     <!-- Variable EB Garamond font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Oswald font -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mozilla+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mozilla+Headline&display=swap" rel="stylesheet">
     <!-- Tailwind via CDN for quick prototyping. Replace with self‑hosted build for prod -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root{
-            --accent:#c90f0f;
+            --accent:#dcb55d;
         }
         /* subtle hero gradient */
         .bg-radial{
-            background: radial-gradient(at 50% -20%, rgba(201,15,15,0.12) 0%,transparent 60%);
+            background: radial-gradient(at 50% -20%, rgba(201, 142, 15, 0.12) 0%,transparent 60%);
         }
-        /* Apply Oswald to all headings */
         h1,h2, h3, h4, h5, h6 {
-            font-family: 'Kaushan Script', cursive;
+            font-family: 'Mozilla Headline', cursive;
         }
         /* Scroll‑reveal */
         [data-reveal]{
@@ -40,9 +36,24 @@
         }
     </style>
 </head>
-<body class="min-h-screen font-['Noto_Sans'] text-black bg-white bg-radial antialiased scroll-smooth">
+<body class="min-h-screen font-['Mozilla_Text'] text-black bg-white bg-radial antialiased scroll-smooth">
+<!-- Header copied from index.html for consistent branding -->
+<header class="sticky top-0 z-40 bg-white/70 backdrop-blur border-b border-slate-100">
+    <div class="container mx-auto px-4 max-w-7xl flex items-center justify-between py-3">
+        <a href="./index.html" class="font-semibold tracking-tight text-lg"><img src="./stuck-logo-1.png" alt="" style="max-width: 100px"></a>
+        <nav class="hidden md:flex gap-6 text-sm">
+            <a href="./index.html#features" class="hover:text-[var(--accent)]">Why us</a>
+            <a href="./index.html#how" class="hover:text-[var(--accent)]">How it works</a>
+            <a href="./index.html#pricing" class="hover:text-[var(--accent)]">Pricing</a>
+        </nav>
+        <div class="flex items-center gap-3">
+            <a href="./registration.html" class="bg-[var(--accent)] text-sm text-white px-8 py-3 rounded-lg hover:bg-[var(--accent)]/90 transition-colors">Register</a>
+            <a href="./index.html" class="text-sm hover:text-[var(--accent)]">Back</a>
+        </div>
+    </div>
+</header>
 <div id="app" class="flex items-center justify-center min-h-screen p-4">
-    <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow">
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
         <!-- Step 1: Email & Password -->
         <div v-if="step === 1">
             <h2 class="text-2xl font-bold mb-6 text-center">Create your account</h2>
@@ -57,38 +68,38 @@
             <button @click="nextStep" :disabled="!form.email || !form.password" class="w-full bg-[var(--accent)] text-white py-2 rounded disabled:opacity-50">Next</button>
         </div>
 
-        <!-- Step 2: Company & Integration -->
+        <!-- Step 2: Company Questionnaire -->
         <div v-else-if="step === 2">
             <h2 class="text-2xl font-bold mb-6 text-center">Tell us about your company</h2>
             <div class="mb-4">
-                <label class="block text-sm font-medium mb-1" for="company">Company name</label>
-                <input id="company" type="text" v-model="form.company" class="w-full border rounded px-3 py-2" placeholder="Acme Inc.">
+                <span class="block text-sm font-medium mb-1">Which of the following best describes your role in the company?</span>
+                <div class="space-y-2">
+                    <label class="flex items-center"><input type="radio" v-model="form.role" value="Owner / Co-founder" class="mr-2"> Owner / Co-founder</label>
+                    <label class="flex items-center"><input type="radio" v-model="form.role" value="E-commerce / Operations Manager" class="mr-2"> E-commerce / Operations Manager</label>
+                    <label class="flex items-center"><input type="radio" v-model="form.role" value="Marketing / Growth Specialist" class="mr-2"> Marketing / Growth Specialist</label>
+                    <label class="flex items-center"><input type="radio" v-model="form.role" value="Developer / Technical Partner" class="mr-2"> Developer / Technical Partner</label>
+                    <label class="flex items-center"><input type="radio" v-model="form.role" value="Other" class="mr-2"> Other</label>
+                </div>
             </div>
             <div class="mb-4">
-                <span class="block text-sm font-medium mb-1">Choose integration</span>
-                <div class="flex justify-between">
-                    <button @click="form.integration = 'jira'" :class="['flex-1 py-2 mx-1 border rounded', form.integration === 'jira' ? 'bg-[var(--accent)] text-white' : '']">
-                        <i class="fa-brands fa-jira text-xl"></i>
-                    </button>
-                    <button @click="form.integration = 'github'" :class="['flex-1 py-2 mx-1 border rounded', form.integration === 'github' ? 'bg-[var(--accent)] text-white' : '']">
-                        <i class="fa-brands fa-github text-xl"></i>
-                    </button>
-                    <button @click="form.integration = 'trello'" :class="['flex-1 py-2 mx-1 border rounded', form.integration === 'trello' ? 'bg-[var(--accent)] text-white' : '']">
-                        <i class="fa-brands fa-trello text-xl"></i>
-                    </button>
+                <span class="block text-sm font-medium mb-1">Is your online store currently live and processing orders?</span>
+                <div class="space-y-2">
+                    <label class="flex items-center"><input type="radio" v-model="form.storeStatus" value="Yes — live and taking orders" class="mr-2"> Yes — live and taking orders</label>
+                    <label class="flex items-center"><input type="radio" v-model="form.storeStatus" value="Built but not launched yet" class="mr-2"> Built but not launched yet</label>
+                    <label class="flex items-center"><input type="radio" v-model="form.storeStatus" value="Planning to build one" class="mr-2"> Planning to build one</label>
+                    <label class="flex items-center"><input type="radio" v-model="form.storeStatus" value="No online store" class="mr-2"> No online store</label>
                 </div>
             </div>
             <div class="mb-6">
-                <label class="block text-sm font-medium mb-1" for="referrer">How did you hear about us?</label>
-                <select id="referrer" v-model="form.referrer" class="w-full border rounded px-3 py-2">
-                    <option disabled value="">Select an option</option>
-                    <option>Search engine</option>
-                    <option>Friend or colleague</option>
-                    <option>Social media</option>
-                    <option>Other</option>
-                </select>
+                <span class="block text-sm font-medium mb-1">Have you used any checkout-recovery or conversion-boosting solutions before?</span>
+                <div class="space-y-2">
+                    <label class="flex items-center"><input type="radio" v-model="form.solutions" value="Yes — using one now" class="mr-2"> Yes — using one now</label>
+                    <label class="flex items-center"><input type="radio" v-model="form.solutions" value="Yes — tested something in the past" class="mr-2"> Yes — tested something in the past</label>
+                    <label class="flex items-center"><input type="radio" v-model="form.solutions" value="Not yet, but actively looking" class="mr-2"> Not yet, but actively looking</label>
+                    <label class="flex items-center"><input type="radio" v-model="form.solutions" value="No — never considered it" class="mr-2"> No — never considered it</label>
+                </div>
             </div>
-            <button @click="nextStep" :disabled="!form.company || !form.integration || !form.referrer" class="w-full bg-[var(--accent)] text-white py-2 rounded disabled:opacity-50">Finish</button>
+            <button @click="nextStep" :disabled="!form.role || !form.storeStatus || !form.solutions" class="w-full bg-[var(--accent)] text-white py-2 rounded disabled:opacity-50">Finish</button>
         </div>
 
         <!-- Step 3: Success -->
@@ -112,9 +123,9 @@
                 form: {
                     email: '',
                     password: '',
-                    company: '',
-                    integration: '',
-                    referrer: ''
+                    role: '',
+                    storeStatus: '',
+                    solutions: ''
                 }
             };
         },
