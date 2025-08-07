@@ -34,6 +34,12 @@
             opacity:1;
             transform:none;
         }
+        /* Custom radio button styles */
+        input[type="radio"] {
+            accent-color: var(--accent);
+            width: 1.25rem;
+            height: 1.25rem;
+        }
     </style>
 </head>
 <body class="min-h-screen font-['Mozilla_Text'] text-black bg-white bg-radial antialiased scroll-smooth">
@@ -72,31 +78,31 @@
         <div v-else-if="step === 2">
             <h2 class="text-2xl font-bold mb-6 text-center">Tell us about your company</h2>
             <div class="mb-4">
-                <span class="block text-sm font-medium mb-1">Which of the following best describes your role in the company?</span>
+                <span class="block text-base font-semibold mb-3 text-gray-900">Which of the following best describes your role in the company?</span>
                 <div class="space-y-2">
-                    <label class="flex items-center"><input type="radio" v-model="form.role" value="Owner / Co-founder" class="mr-2"> Owner / Co-founder</label>
-                    <label class="flex items-center"><input type="radio" v-model="form.role" value="E-commerce / Operations Manager" class="mr-2"> E-commerce / Operations Manager</label>
-                    <label class="flex items-center"><input type="radio" v-model="form.role" value="Marketing / Growth Specialist" class="mr-2"> Marketing / Growth Specialist</label>
-                    <label class="flex items-center"><input type="radio" v-model="form.role" value="Developer / Technical Partner" class="mr-2"> Developer / Technical Partner</label>
-                    <label class="flex items-center"><input type="radio" v-model="form.role" value="Other" class="mr-2"> Other</label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.role" value="Owner / Co-founder"><span class="text-sm text-gray-700">Owner / Co-founder</span></label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.role" value="E-commerce / Operations Manager"><span class="text-sm text-gray-700">E-commerce / Operations Manager</span></label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.role" value="Marketing / Growth Specialist"><span class="text-sm text-gray-700">Marketing / Growth Specialist</span></label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.role" value="Developer / Technical Partner"><span class="text-sm text-gray-700">Developer / Technical Partner</span></label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.role" value="Other"><span class="text-sm text-gray-700">Other</span></label>
                 </div>
             </div>
             <div class="mb-4">
-                <span class="block text-sm font-medium mb-1">Is your online store currently live and processing orders?</span>
+                <span class="block text-base font-semibold mb-3 text-gray-900">Is your online store currently live and processing orders?</span>
                 <div class="space-y-2">
-                    <label class="flex items-center"><input type="radio" v-model="form.storeStatus" value="Yes — live and taking orders" class="mr-2"> Yes — live and taking orders</label>
-                    <label class="flex items-center"><input type="radio" v-model="form.storeStatus" value="Built but not launched yet" class="mr-2"> Built but not launched yet</label>
-                    <label class="flex items-center"><input type="radio" v-model="form.storeStatus" value="Planning to build one" class="mr-2"> Planning to build one</label>
-                    <label class="flex items-center"><input type="radio" v-model="form.storeStatus" value="No online store" class="mr-2"> No online store</label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.storeStatus" value="Yes — live and taking orders"><span class="text-sm text-gray-700">Yes — live and taking orders</span></label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.storeStatus" value="Built but not launched yet"><span class="text-sm text-gray-700">Built but not launched yet</span></label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.storeStatus" value="Planning to build one"><span class="text-sm text-gray-700">Planning to build one</span></label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.storeStatus" value="No online store"><span class="text-sm text-gray-700">No online store</span></label>
                 </div>
             </div>
             <div class="mb-6">
-                <span class="block text-sm font-medium mb-1">Have you used any checkout-recovery or conversion-boosting solutions before?</span>
+                <span class="block text-base font-semibold mb-3 text-gray-900">Have you used any checkout-recovery or conversion-boosting solutions before?</span>
                 <div class="space-y-2">
-                    <label class="flex items-center"><input type="radio" v-model="form.solutions" value="Yes — using one now" class="mr-2"> Yes — using one now</label>
-                    <label class="flex items-center"><input type="radio" v-model="form.solutions" value="Yes — tested something in the past" class="mr-2"> Yes — tested something in the past</label>
-                    <label class="flex items-center"><input type="radio" v-model="form.solutions" value="Not yet, but actively looking" class="mr-2"> Not yet, but actively looking</label>
-                    <label class="flex items-center"><input type="radio" v-model="form.solutions" value="No — never considered it" class="mr-2"> No — never considered it</label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.solutions" value="Yes — using one now"><span class="text-sm text-gray-700">Yes — using one now</span></label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.solutions" value="Yes — tested something in the past"><span class="text-sm text-gray-700">Yes — tested something in the past</span></label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.solutions" value="Not yet, but actively looking"><span class="text-sm text-gray-700">Not yet, but actively looking</span></label>
+                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded"><input type="radio" v-model="form.solutions" value="No — never considered it"><span class="text-sm text-gray-700">No — never considered it</span></label>
                 </div>
             </div>
             <button @click="nextStep" :disabled="!form.role || !form.storeStatus || !form.solutions" class="w-full bg-[var(--accent)] text-white py-2 rounded disabled:opacity-50">Finish</button>
